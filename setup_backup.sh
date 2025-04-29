@@ -2,7 +2,7 @@
 
 # === Sozlamalar ===
 SOURCE_FILE="mk.sh"
-TARGET_DIR="/apps"
+TARGET_DIR="~/apps"
 ENV_FILE=".env"
 REPO_VAR_LINE="REPO_DIR_API=\"$(pwd)\""
 
@@ -18,7 +18,7 @@ else
     echo "[INFO] .env dan PROJECT_NAME: $PROJECT_NAME"
 fi
 
-BACKUP_DIR_PATH="/home/backup/$PROJECT_NAME"
+BACKUP_DIR_PATH="~/apps/backup/$PROJECT_NAME"
 TARGET_FILE="$TARGET_DIR/$PROJECT_NAME.sh"
 
 # === Manba fayl mavjudligini tekshirish ===
