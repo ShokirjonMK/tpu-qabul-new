@@ -59,6 +59,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        Yii::$app->user->logout();
         return $this->render('index');
     }
 
