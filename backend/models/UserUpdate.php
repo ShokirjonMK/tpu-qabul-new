@@ -417,31 +417,31 @@ class UserUpdate extends Model
             $filial_id = 2;
         }
 
-        if ($domen == 'qabul.tgfu.uz') {
+        if ($domen == 'qabul.tpu.uz') {
             if ($filial_id == 3) {
                 $cons = 2;
             } else {
                 $cons = 1;
             }
-        } elseif ($domen == 'qabul1.tgfu.uz') {
+        } elseif ($domen == 'qabul1.tpu.uz') {
             $cons = 4;
-        } elseif ($domen == 'qabul2.tgfu.uz') {
+        } elseif ($domen == 'qabul2.tpu.uz') {
             $cons = 6;
-        } elseif ($domen == 'qabul3.tgfu.uz') {
+        } elseif ($domen == 'qabul3.tpu.uz') {
             $cons = 7;
-        } elseif ($domen == 'qabul4.tgfu.uz') {
+        } elseif ($domen == 'qabul4.tpu.uz') {
             $cons = 8;
-        } elseif ($domen == 'qabul5.tgfu.uz') {
+        } elseif ($domen == 'qabul5.tpu.uz') {
             $cons = 10;
-        } elseif ($domen == 'qabul6.tgfu.uz') {
+        } elseif ($domen == 'qabul6.tpu.uz') {
             $cons = 11;
-        } elseif ($domen == 'qabul7.tgfu.uz') {
+        } elseif ($domen == 'qabul7.tpu.uz') {
             $cons = 12;
-        } elseif ($domen == 'qabul8.tgfu.uz') {
+        } elseif ($domen == 'qabul8.tpu.uz') {
             $cons = 13;
-        } elseif ($domen == 'qabul9.tgfu.uz') {
+        } elseif ($domen == 'qabul9.tpu.uz') {
             $cons = 15;
-        } elseif ($domen == 'qabul10.tgfu.uz') {
+        } elseif ($domen == 'qabul10.tpu.uz') {
             $cons = 16;
         }
 

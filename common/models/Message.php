@@ -25,7 +25,7 @@ class Message extends \yii\db\ActiveRecord
     public static function sendSms($phone, $text)
     {
         $phone = preg_replace("/[^0-9]/", "", $phone);
-        $text = 'Toshkent Gumanitar Fanlar Universiteti qabul tizimi  - tasdiqlash kodi: '. $text;
+        $text = 'Tashkent Perfect Universiteti qabul tizimi  - tasdiqlash kodi: '. $text;
         $data = '{
                 "messages":
                     [

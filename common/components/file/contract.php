@@ -107,7 +107,7 @@ $limg = $lqr->writeDataUri();
     <tr>
         <td colspan="4" style="text-align: center">
             <b>
-                Toshkent gumanitar fanlar  universitetida oʻqitish uchun <br>
+            Tashkent Perfect University oʻqitish uchun <br>
                 toʻlov-kontrakt <br><br>
                 SHARTNOMA № <?= $student->passport_serial.$student->passport_number ?>
             </b>
