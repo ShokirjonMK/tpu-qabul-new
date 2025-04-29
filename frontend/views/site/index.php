@@ -33,10 +33,10 @@ $this->title = 'Tashkent Perfect University';
             <div class="banner-logo">
                 <div class="circle">
                     <div class="logo">
-                        <img src="/frontend/web/images/logo_blue.svg" alt="">
+                        <img src="/frontend/web/images/logo_icon.png" alt="">
                     </div>
                     <div class="circle-text">
-                        <p>Tashkent * Perfect * University *</p>
+                        <p>TASHKENT * PERFECT * UNIVERSITY * </p>
                     </div>
                 </div>
             </div>

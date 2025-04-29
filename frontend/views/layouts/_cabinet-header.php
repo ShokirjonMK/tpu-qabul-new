@@ -21,7 +21,7 @@ $class = 'cab_sidebar';
 <div class="cab_head">
         <div class="cab_head_left">
             <a href="<?= Url::to(['cabinet/index']) ?>">
-                <img src="/frontend/web/images/new_logo.png" alt="">
+                <img src="/frontend/web/images/logo_blue.svg" alt="">
             </a>
         </div>
         <div class="cab_head_right">

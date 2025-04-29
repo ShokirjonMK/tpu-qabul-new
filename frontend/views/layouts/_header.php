@@ -27,7 +27,7 @@ $flagMap = [
         <div class="mb_head d-flex justify-content-between align-items-center">
             <div class="mb_head_left">
                 <a href="<?= Url::to(['site/index']) ?>">
-                    <img src="/frontend/web/images/logo_new.svg" alt="">
+                    <img src="/frontend/web/images/logo.svg" alt="">
                 </a>
             </div>
             <div class="mb_head_right">
@@ -107,14 +107,14 @@ $flagMap = [
             <div class="mb_menu_list">
                 <p><?= Yii::t("app", "a5") ?></p>
                 <ul>
-                    <li><a href="https://www.instagram.com/perfect_university/?igshid=MzRlODBiNWFlZA%3D%3D"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="https://www.instagram.com/perfect.university?igsh=MWMwejIxMWhycG40bg=="><i class="fa-brands fa-instagram"></i></a></li>
                     <li><a href="https://t.me/perfect_university"><i class="fa-brands fa-telegram"></i></a></li>
-                    <li><a href="https://www.facebook.com/perfect_university.uz?mibextid=ZbWKwL"><i class="fa-brands fa-facebook"></i></a></li>
-                    <li><a href="https://youtube.com/@perfect_university?si=teblBgMHa0fG-nus"><i class="fa-brands fa-youtube"></i></a></li>
+                    <li><a href="https://www.facebook.com/perfectuniversity.uz?mibextid=kFxxJD"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="https://www.youtube.com/watch?v=PxxRtC8rllQ"><i class="fa-brands fa-youtube"></i></a></li>
                 </ul>
             </div>
 
-            <img src="/frontend/web/images/logo_new.svg" class="mb_vector_img">
+            <img src="/frontend/web/images/logo-vector.svg" class="mb_vector_img">
         </div>
     </div>
 </div>
@@ -128,35 +128,23 @@ $flagMap = [
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modalBody">
-                        <img src="/frontend/web/images/logo_new.svg" alt="" width="100px">
+                        <img src="/frontend/web/images/logo.svg" alt="" width="180px">
                         <div class="ik_connection">
                             <h5><?= Yii::t("app", "a6") ?></h5>
                             <ul>
                                 <li><p><?= Yii::t("app", "a7") ?></p></li>
-                                <li><a href="tel:+998788886666">+998 78 888-66-66</a></li>
+                                <li><a href="tel:+998771292929">+998 77 129 29 29</a></li>
                             </ul>
 
                             <ul>
-                                <li><p><?= Yii::t("app", "a9") ?></p></li>
+                                <li><p>Manzil</p></li>
                                 <li>
-                                    <a href="#">
-                                        Toshkent shahri, Yangixayot tumani, Choshtepa MFY, Choshtepa ko’chasi, 381-uy
+                                    <a href="https://maps.app.goo.gl/ahC4yFtFD4h2nbsY8">
+                                        Toshkent shahri, Olmazor tumani, Xastimom MFY, Zarqaynar ko'chasi, 6/1-uy
                                     </a>
                                 </li>
                             </ul>
 
-                            <ul>
-                                <li><p><?= Yii::t("app", "a9") ?></p></li>
-                                <li>
-                                    <a href="#">
-                                        Qoraqalpogʻiston Respublikasi, Toʻrtkoʻl tumani, Guliston MFY, Beruniy tup koʻchasi 146-uy
-                                    </a>
-                                </li>
-                            </ul>
-
-<!--                            <div class="modal_vector_img">-->
-<!--                                <img src="/frontend/web/images/logo-vector.svg">-->
-<!--                            </div>-->
                         </div>
                     </div>
                 </div>

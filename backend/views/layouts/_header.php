@@ -6,7 +6,7 @@ use common\models\Student;
 use common\models\Employee;
 
 $user = Yii::$app->user->identity;
-$logo = "/frontend/web/images/logo_blue.svg";
+$logo = "/frontend/web/images/logo_icon_color.svg";
 $employee = Employee::findOne(['user_id' => $user->id]);
 $full_name = $employee->last_name . " " . $employee->first_name;
 $postion = $user->authItem->description;

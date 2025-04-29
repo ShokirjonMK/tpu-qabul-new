@@ -1,10 +1,10 @@
 <div class="pageLoading">
     <div class="circle">
         <div class="logo">
-            <img src="/frontend/web/images/logo_blue.svg" alt="">
+            <img src="/frontend/web/images/logo_icon.png" alt="">
         </div>
         <div class="circle-text2">
-            <p>Tashkent * Perfect * University</p>
+            <p>TASHKENT * PERFECT * UNIVERSITY * </p>
         </div>
     </div>
 </div>
