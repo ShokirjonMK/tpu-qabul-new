@@ -60,7 +60,7 @@ class StepOneTwo extends Model
 
             self::deleteNull($student->id);
 
-            $birthday = date("d-m-Y" , strtotime($this->birthday));
+//            $birthday = date("d-m-Y" , strtotime($this->birthday));
 
 //            $integration = new Integration();
 //            $integration->birthDate = date("d-m-Y" , strtotime($this->birthday));

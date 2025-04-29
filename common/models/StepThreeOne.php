@@ -87,42 +87,42 @@ class StepThreeOne extends Model
             return ['is_ok' => false, 'errors' => $errors];
         }
 
-//        if ($this->exam_type == 1) {
-//
-//            if ($this->exam_date_id == null) {
-//                $errors[] = ['Imtixon sanasi tanlang.'];
-//                $transaction->rollBack();
-//                return ['is_ok' => false , 'errors' => $errors];
-//            }
-//
-//            if ($student->exam_date_id != $this->exam_date_id) {
-//                $examDate = ExamDate::findOne([
-//                    'id' => $this->exam_date_id,
-//                    'branch_id' => $this->filial_id,
-//                    'status' => 1,
-//                    'is_deleted' => 0
-//                ]);
-//                if (!$examDate) {
-//                    $errors[] = ['Imtixon sanasi o\'zgarganligi uchun boshqa sanani tanlang.'];
-//                    $transaction->rollBack();
-//                    return ['is_ok' => false , 'errors' => $errors];
-//                }
-//
-//                $studentExamDateCount = Student::find()
-//                    ->joinWith('user')
-//                    ->where([
-//                        'student.exam_date_id' => $examDate->id,
-//                    ])
-//                    ->andWhere(['user.status' => [9, 10]])
-//                    ->count();
-//                if ($studentExamDateCount >= $examDate->limit) {
-//                    $examDate->status = 0;
-//                    $examDate->save(false);
-//                }
-//            }
-//        } else {
-//            $this->exam_date_id = null;
-//        }
+        if ($this->exam_type == 1) {
+
+            if ($this->exam_date_id == null) {
+                $errors[] = ['Imtixon sanasi tanlang.'];
+                $transaction->rollBack();
+                return ['is_ok' => false , 'errors' => $errors];
+            }
+
+            if ($student->exam_date_id != $this->exam_date_id) {
+                $examDate = ExamDate::findOne([
+                    'id' => $this->exam_date_id,
+                    'branch_id' => $this->filial_id,
+                    'status' => 1,
+                    'is_deleted' => 0
+                ]);
+                if (!$examDate) {
+                    $errors[] = ['Imtixon sanasi o\'zgarganligi uchun boshqa sanani tanlang.'];
+                    $transaction->rollBack();
+                    return ['is_ok' => false , 'errors' => $errors];
+                }
+
+                $studentExamDateCount = Student::find()
+                    ->joinWith('user')
+                    ->where([
+                        'student.exam_date_id' => $examDate->id,
+                    ])
+                    ->andWhere(['user.status' => [9, 10]])
+                    ->count();
+                if ($studentExamDateCount >= $examDate->limit) {
+                    $examDate->status = 0;
+                    $examDate->save(false);
+                }
+            }
+        } else {
+            $this->exam_date_id = null;
+        }
 
         $student->setAttributes([
             'branch_id' => $this->filial_id,
@@ -171,23 +171,6 @@ class StepThreeOne extends Model
         $noStudentUser = Yii::$app->user->identity;
         if ($noStudentUser->user_role != 'student') {
             $user->step = 5;
-            if ($student->edu_type_id == 1) {
-                $exam = Exam::findOne([
-                    'edu_direction_id' => $eduDirection->id,
-                    'student_id' => $student->id,
-                    'status' => 1,
-                    'is_deleted' => 0
-                ]);
-                if (!$exam) {
-                    $errors[] = ['Imtixon mavjud emas!'];
-                } else {
-                    $exam->contract_price = $eduDirection->price;
-                    $exam->confirm_date = time();
-                    $exam->ball = 60;
-                    $exam->status = 3;
-                    $exam->save(false);
-                }
-            }
         } else {
             $user->step = self::STEP;
         }
