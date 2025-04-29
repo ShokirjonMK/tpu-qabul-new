@@ -21,7 +21,7 @@ use yii\helpers\Url;
                 <div class="mb_menu_list2">
                     <ul>
                         <li>
-                            <a href="https://tgfu.uz/">
+                            <a href="https://tpu.uz/">
                                 <span><?= Yii::t("app" , "a22") ?> <b>Tashkent Perfect University</b></span>
                             </a>
                         </li>
