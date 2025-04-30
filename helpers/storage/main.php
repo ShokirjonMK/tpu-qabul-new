@@ -145,6 +145,11 @@ function checkAllowedIP()
 function getConsIk()
 {
     $user = Yii::$app->user->identity;
+
+    if ($user === null) {
+        throw new \yii\web\UnauthorizedHttpException("User is not authenticated.");
+    }
+
     $role = $user->user_role;
     $authItem = AuthItem::findOne(['name' => $role]);
 
@@ -187,6 +192,7 @@ function getConsIk()
 
     return $data;
 }
+
 
 function getBranchOneIk()
 {
