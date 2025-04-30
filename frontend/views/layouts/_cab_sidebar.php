@@ -8,7 +8,7 @@
                 <i class="fa-solid fa-user-tie"></i>
             </div>
             <div class="sidebar-right">
-                <h6 class="mt-1"><?= $student->fullName ?></h6>
+                <h6 class="mt-1"><?= $student->fullName ?? 'Unknown' ?></h6>
                 <p class="mt-1">ID: <span>&nbsp; <?= $student->user_id ?></span></p>
             </div>
         </div>
