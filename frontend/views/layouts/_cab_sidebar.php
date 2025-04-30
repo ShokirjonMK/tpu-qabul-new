@@ -22,7 +22,7 @@
                 </a>
             </li>
 
-            <?php if ($student->edu_type_id == 1) : ?>
+            <?php if (isset($student->edu_type_id) && $student->edu_type_id == 1) : ?>
                 <li>
                     <a href="/cabinet/exam" class="<?= getActive('cabinet', 'exam') ?>">
                         <span><i class="bi bi-graph-up"></i></span>
