@@ -9,7 +9,7 @@
             </div>
             <div class="sidebar-right">
                 <h6 class="mt-1"><?= $student->fullName ?? 'Unknown' ?></h6>
-                <p class="mt-1">ID: <span>&nbsp; <?= $student->user_id ?></span></p>
+                <p class="mt-1">ID: <span>&nbsp; <?= $student->user_id ?? 'Unknown' ?></span></p>
             </div>
         </div>
     </div>
