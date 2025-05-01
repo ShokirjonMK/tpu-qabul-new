@@ -128,7 +128,7 @@ $limg = $lqr->writeDataUri();
             Oliy ta’lim хizmatlarini ko‘rsatish faoliyati uchun 2022-yil 19-oktabrda berilgan 424703-raqamli litsenziya egasi,
              <b style="text-transform: uppercase;"><?= $filial->name_uz ?></b> (keyingi o‘rinlarda matnda “Ta’lim tashkiloti” dеb yuritiladi) nomidan uning Ustaviga muvofiq ish ko‘ruvchi rektor <b style="text-transform: uppercase;"><?= $filial->rector_uz ?></b> bir tomondan va
             <b style="text-transform: uppercase;"><?= $full_name ?></b> (kеyingi o‘rinlarda matnda “Talaba” dеb yuritiladi) ikkinchi tomondan, <br>
-            _______________________________________________ keyingi o`rinlarda matnda “To‘lovchi” deb yuritiladi) __________________ asosida ish yurituvchi
+            _______________________________________________ keyingi o‘rinlarda matnda “To‘lovchi” deb yuritiladi) __________________ asosida ish yurituvchi
             ____________________________________________ ishtirokida (birgalikda- “Taraflar” deb atalishadi) quyidagilar to‘g‘risida ushbu shartnomani tuzdilar:
         </td>
     </tr>
