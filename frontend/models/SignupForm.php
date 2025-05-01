@@ -145,7 +145,7 @@ class SignupForm extends Model
                 $cons = $branch->cons;
                 $domen = $_SERVER['HTTP_HOST'];
 
-                if ($cons->domen == $domen) {
+                if ($cons && $cons->domen == $domen) {
                     $user->cons_id = $cons->id;
                 } else {
                     $consulting = Consulting::findOne([
