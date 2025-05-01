@@ -94,7 +94,7 @@ $qr = (new QrCode('https://qabul.tpu.uz/site/contract?key=' . $link.'&type=2'))-
     ->setMargin(10);
 $img = $qr->writeDataUri();
 
-$lqr = (new QrCode('https://license.gov.uz/registry/48a00e41-6370-49d6-baf7-ea67247beeb6'))->setSize(100, 100)
+$lqr = (new QrCode('https://license.gov.uz/registry/23a03e28-2919-4472-ae48-772580999311'))->setSize(100, 100)
     ->setMargin(10);
 $limg = $lqr->writeDataUri();
 
