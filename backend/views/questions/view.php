@@ -17,11 +17,11 @@ $breadcrumbs['item'][] = [
 ];
 $breadcrumbs['item'][] = [
     'label' => $subject->name_uz,
-    'url' => ['subjects/view' , 'id' => $subject->id],
+    'url' => ['subjects/view', 'id' => $subject->id],
 ];
 $breadcrumbs['item'][] = [
     'label' => 'Savollar',
-    'url' => ['index' , 'id' => $subject->id],
+    'url' => ['index', 'id' => $subject->id],
 ];
 \yii\web\YiiAsset::register($this);
 ?>
@@ -32,7 +32,7 @@ $breadcrumbs['item'][] = [
         <ol class="breadcrumb">
             <?php
             foreach ($breadcrumbs['item'] as $item) {
-                echo "<li class='breadcrumb-item'><a href='". Url::to($item['url']) ."'>". $item['label'] ."</a></li>";
+                echo "<li class='breadcrumb-item'><a href='" . Url::to($item['url']) . "'>" . $item['label'] . "</a></li>";
             }
             ?>
             <li class="breadcrumb-item active" aria-current="page"><?= Html::encode($this->title) ?></li>
@@ -41,7 +41,7 @@ $breadcrumbs['item'][] = [
 
     <?php if (permission('options', 'create')): ?>
         <div class="mb-3 mt-4">
-            <?= Html::a(Yii::t('app', 'Variant qo\'shish'), ['options/create' , 'id' => $model->id], ['class' => 'b-btn b-primary']) ?>
+            <?= Html::a(Yii::t('app', 'Variant qo\'shish'), ['options/create', 'id' => $model->id], ['class' => 'b-btn b-primary']) ?>
         </div>
     <?php endif; ?>
 
@@ -56,17 +56,17 @@ $breadcrumbs['item'][] = [
                         <?php if ($model->status != 1) : ?>
                             <?php if (permission('questions', 'check')): ?>
                                 <?= Html::a(Yii::t('app', '<i class="far fa-check-circle"></i>'), ['check', 'id' => $model->id], [
-                                'class' => '',
-                                'data' => [
-                                    'confirm' => Yii::t('app', 'Savol tasdiqlansinmi?'),
-                                    'method' => 'post',
+                                    'class' => '',
+                                    'data' => [
+                                        'confirm' => Yii::t('app', 'Savol tasdiqlansinmi?'),
+                                        'method' => 'post',
                                     ],
                                 ]) ?>
                             <?php endif; ?>
                         <?php endif; ?>
 
                         <?php if (permission('questions', 'update')): ?>
-                            <a href="<?= Url::to(['update' , 'id' => $model->id]) ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="<?= Url::to(['update', 'id' => $model->id]) ?>"><i class="fa-solid fa-pen-to-square"></i></a>
                         <?php endif; ?>
 
                         <?php if (permission('questions', 'delete')): ?>
@@ -84,6 +84,28 @@ $breadcrumbs['item'][] = [
                     <?php if ($model->text != null) : ?>
                         <div class="qs_content">
                             <p><?= $model->text ?></p>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($model->image != null): ?>
+                        <div class="qs_content">
+                            <div class="qs_image">
+                                <img src="/backend/web/uploads/questions/<?= $model->image ?>">
+                                <?php if (permission('questions', 'img-delete')): ?>
+                                    <?= Html::a(Yii::t('app', '<i class="fa-solid fa-trash"></i>'), ['img-delete', 'id' => $model->id], [
+                                        'class' => '',
+                                        'data' => [
+                                            'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                            'method' => 'post',
+                                        ],
+                                    ]) ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php elseif ($model->image_base64 != null): ?>
+                        <div class="qs_content">
+                            <div class="qs_image">
+                                <img src="<?= $model->image_base64 ?>" style="max-width: 100%; height: auto;">
+                            </div>
                         </div>
                     <?php endif; ?>
                     <?php if ($model->image != null) : ?>
@@ -108,12 +130,14 @@ $breadcrumbs['item'][] = [
                     <?php foreach ($options as $option) : ?>
                         <div class="qs_option">
                             <div class="qs_option_head">
-                                <div class="qs_option_left <?php if ($option->is_correct == 1) { echo "active";} ?>">
+                                <div class="qs_option_left <?php if ($option->is_correct == 1) {
+                                                                echo "active";
+                                                            } ?>">
                                     <p>Variant ID: &nbsp; <strong><?= $option->id ?></strong></p>
                                 </div>
                                 <div class="qs_option_right">
                                     <?php if (permission('options', 'update')): ?>
-                                        <a href="<?= Url::to(['options/update' , 'id' => $option->id]) ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="<?= Url::to(['options/update', 'id' => $option->id]) ?>"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <?php endif; ?>
 
                                     <?php if (permission('options', 'delete')): ?>
@@ -133,7 +157,9 @@ $breadcrumbs['item'][] = [
                                     <p><?= $option->text ?></p>
                                 <?php endif; ?>
                                 <?php if ($option->image != null) : ?>
-                                    <div class="qs_option_image <?php if ($option->text != null) { echo "mtop10";} ?>">
+                                    <div class="qs_option_image <?php if ($option->text != null) {
+                                                                    echo "mtop10";
+                                                                } ?>">
                                         <img src="/backend/web/uploads/options/<?= $option->image ?>">
                                         <?php if (permission('options', 'img-delete')): ?>
                                             <?= Html::a(Yii::t('app', '<i class="fa-solid fa-trash"></i>'), ['options/img-delete', 'id' => $option->id], [
