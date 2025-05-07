@@ -165,6 +165,122 @@ class Upload extends Model
 
 
 
+//    public static function upload($model, $subject)
+//    {
+//        $transaction = Yii::$app->db->beginTransaction();
+//        $errors = [];
+//
+//        if (!$model->validate()) {
+//            $errors[] = $model->simple_errors($model->errors);
+//            $transaction->rollBack();
+//            return ['is_ok' => false, 'errors' => $errors];
+//        }
+//
+//        $photoFile = UploadedFile::getInstance($model, 'file');
+//        if ($photoFile && isset($photoFile->size)) {
+//            $photoFolderName = '@backend/web/uploads/excel_questions/';
+//            if (!file_exists(\Yii::getAlias($photoFolderName))) {
+//                mkdir(\Yii::getAlias($photoFolderName), 0777, true);
+//            }
+//
+//            $photoName = \Yii::$app->security->generateRandomString(20) . '.' . $photoFile->extension;
+//            $url = $photoFolderName . "/" . $photoName;
+//            $photoFile->saveAs(\Yii::getAlias($url));
+//
+//            $inputFileName = \Yii::getAlias($url);
+//            $spreadsheet = IOFactory::load($inputFileName);
+//            $sheet = $spreadsheet->getActiveSheet();
+//            $data = $sheet->toArray();
+//
+//            // Rasm obyektlarini yig‘ish
+//            $drawings = $sheet->getDrawingCollection();
+//            $images = [];
+//
+//            foreach ($drawings as $drawing) {
+//                $row = preg_replace('/[^0-9]/', '', $drawing->getCoordinates());
+//
+//                try {
+//                    if ($drawing instanceof MemoryDrawing) {
+//                        ob_start();
+//                        call_user_func($drawing->getRenderingFunction(), $drawing->getImageResource());
+//                        $imageData = ob_get_contents();
+//                        ob_end_clean();
+//                        $extension = $drawing->getMimeType() == MemoryDrawing::MIMETYPE_PNG ? 'png' : 'jpg';
+//                    } else {
+//                        $imageContents = file_get_contents($drawing->getPath()); // BEZ xatolik
+//                        $imageData = $imageContents;
+//                        $extension = $drawing->getExtension();
+//                    }
+//
+//                    $images[$row] = 'data:image/' . $extension . ';base64,' . base64_encode($imageData);
+//                } catch (\Exception $e) {
+//                    Yii::warning("Rasmni o'qishda xatolik: " . $e->getMessage());
+//                }
+//            }
+//
+//            foreach ($data as $key => $row) {
+//                if ($key == 0) continue;
+//
+//                $question = $row[0];
+//                $optionTrue = $row[1] ?? '.';
+//                $option1 = $row[2] ?? '.';
+//                $option2 = $row[3] ?? '.';
+//                $option3 = $row[4] ?? '.';
+//
+//                if (empty($question)) break;
+//
+//                $optionData = custom_shuffle([$optionTrue, $option1, $option2, $option3]);
+//
+//                $new = new Questions();
+//                $new->subject_id = $subject->id;
+//                $new->text = $question;
+//                $new->status = 1;
+//
+//                $rowNumber = $key + 1;
+//                if (isset($images[$rowNumber])) {
+//                    $new->image_base64 = $images[$rowNumber];
+//                }
+//
+//                if (!$new->validate()) {
+//                    $errors[] = $new->errors;
+//                    $transaction->rollBack();
+//                    return ['is_ok' => false, 'errors' => $errors];
+//                }
+//
+//                if ($new->save(false)) {
+//                    foreach ($optionData as $idx => $item) {
+//                        $newOption = new Options();
+//                        $newOption->question_id = $new->id;
+//                        $newOption->text = $item;
+//                        $newOption->subject_id = $subject->id;
+//                        $newOption->is_correct = $idx == 0 ? 1 : 0;
+//                        if (!$newOption->save(false)) {
+//                            $errors[] = ['Option not saved.'];
+//                            $transaction->rollBack();
+//                            return ['is_ok' => false, 'errors' => $errors];
+//                        }
+//                    }
+//                } else {
+//                    $errors[] = $new->errors;
+//                    $transaction->rollBack();
+//                    return ['is_ok' => false, 'errors' => $errors];
+//                }
+//            }
+//
+//            unlink($inputFileName);
+//        } else {
+//            $errors[] = ['Fayl yuborilmadi!'];
+//        }
+//
+//        if (count($errors) == 0) {
+//            $transaction->commit();
+//            return ['is_ok' => true];
+//        } else {
+//            $transaction->rollBack();
+//            return ['is_ok' => false, 'errors' => $errors];
+//        }
+//    }
+
     public static function upload($model, $subject)
     {
         $transaction = Yii::$app->db->beginTransaction();
@@ -178,26 +294,26 @@ class Upload extends Model
 
         $photoFile = UploadedFile::getInstance($model, 'file');
         if ($photoFile && isset($photoFile->size)) {
-            $photoFolderName = '@backend/web/uploads/excel_questions/';
-            if (!file_exists(\Yii::getAlias($photoFolderName))) {
-                mkdir(\Yii::getAlias($photoFolderName), 0777, true);
+            $uploadDir = '@backend/web/uploads/excel_questions/';
+            if (!file_exists(\Yii::getAlias($uploadDir))) {
+                mkdir(\Yii::getAlias($uploadDir), 0777, true);
             }
 
             $photoName = \Yii::$app->security->generateRandomString(20) . '.' . $photoFile->extension;
-            $url = $photoFolderName . "/" . $photoName;
-            $photoFile->saveAs(\Yii::getAlias($url));
+            $filePath = $uploadDir . "/" . $photoName;
+            $photoFile->saveAs(\Yii::getAlias($filePath));
 
-            $inputFileName = \Yii::getAlias($url);
-            $spreadsheet = IOFactory::load($inputFileName);
+            $spreadsheet = IOFactory::load(\Yii::getAlias($filePath));
             $sheet = $spreadsheet->getActiveSheet();
             $data = $sheet->toArray();
-
-            // Rasm obyektlarini yig‘ish
             $drawings = $sheet->getDrawingCollection();
+
             $images = [];
 
             foreach ($drawings as $drawing) {
-                $row = preg_replace('/[^0-9]/', '', $drawing->getCoordinates());
+                $coordinate = $drawing->getCoordinates();
+                $row = preg_replace('/[^0-9]/', '', $coordinate);
+                $col = preg_replace('/[0-9]/', '', $coordinate);
 
                 try {
                     if ($drawing instanceof MemoryDrawing) {
@@ -207,38 +323,62 @@ class Upload extends Model
                         ob_end_clean();
                         $extension = $drawing->getMimeType() == MemoryDrawing::MIMETYPE_PNG ? 'png' : 'jpg';
                     } else {
-                        $imageContents = file_get_contents($drawing->getPath()); // BEZ xatolik
-                        $imageData = $imageContents;
+                        $imageData = file_get_contents($drawing->getPath());
                         $extension = $drawing->getExtension();
                     }
 
-                    $images[$row] = 'data:image/' . $extension . ';base64,' . base64_encode($imageData);
+                    // Rasm fayl nomini yaratish
+                    $photoName = $subject->id . "_" . time() . "_" . Yii::$app->security->generateRandomString(20) . '.' . $extension;
+
+                    // Papkaga qarab rasmni saqlash
+                    if ($col == 'A') {
+                        $dir = '@backend/web/uploads/questions/';
+                    } else {
+                        $dir = '@backend/web/uploads/options/';
+                    }
+
+                    if (!file_exists(Yii::getAlias($dir))) {
+                        mkdir(Yii::getAlias($dir), 0777, true);
+                    }
+
+                    $fullPath = Yii::getAlias($dir . $photoName);
+                    file_put_contents($fullPath, $imageData);
+
+                    // Faqat fayl nomini saqlaymiz
+                    $images[$row][$col] = $photoName;
+
                 } catch (\Exception $e) {
-                    Yii::warning("Rasmni o'qishda xatolik: " . $e->getMessage());
+                    Yii::warning("Rasmni saqlashda xatolik: " . $e->getMessage());
                 }
             }
 
             foreach ($data as $key => $row) {
                 if ($key == 0) continue;
 
-                $question = $row[0];
+                $questionText = $row[0];
                 $optionTrue = $row[1] ?? '.';
                 $option1 = $row[2] ?? '.';
                 $option2 = $row[3] ?? '.';
                 $option3 = $row[4] ?? '.';
 
-                if (empty($question)) break;
+                if (empty($questionText)) break;
 
-                $optionData = custom_shuffle([$optionTrue, $option1, $option2, $option3]);
+                $optionData = custom_shuffle([
+                    ['text' => $optionTrue, 'column' => 'B'],
+                    ['text' => $option1, 'column' => 'C'],
+                    ['text' => $option2, 'column' => 'D'],
+                    ['text' => $option3, 'column' => 'E'],
+                ]);
 
                 $new = new Questions();
                 $new->subject_id = $subject->id;
-                $new->text = $question;
+                $new->text = $questionText;
                 $new->status = 1;
 
                 $rowNumber = $key + 1;
-                if (isset($images[$rowNumber])) {
-                    $new->image_base64 = $images[$rowNumber];
+
+                if (isset($images[$rowNumber]['A'])) {
+                    $new->image = $images[$rowNumber]['A'];
                 }
 
                 if (!$new->validate()) {
@@ -251,9 +391,15 @@ class Upload extends Model
                     foreach ($optionData as $idx => $item) {
                         $newOption = new Options();
                         $newOption->question_id = $new->id;
-                        $newOption->text = $item;
+                        $newOption->text = $item['text'];
                         $newOption->subject_id = $subject->id;
                         $newOption->is_correct = $idx == 0 ? 1 : 0;
+
+                        $col = $item['column'];
+                        if (isset($images[$rowNumber][$col])) {
+                            $newOption->image = $images[$rowNumber][$col];
+                        }
+
                         if (!$newOption->save(false)) {
                             $errors[] = ['Option not saved.'];
                             $transaction->rollBack();
@@ -267,7 +413,7 @@ class Upload extends Model
                 }
             }
 
-            unlink($inputFileName);
+            unlink(Yii::getAlias($filePath));
         } else {
             $errors[] = ['Fayl yuborilmadi!'];
         }
@@ -280,4 +426,5 @@ class Upload extends Model
             return ['is_ok' => false, 'errors' => $errors];
         }
     }
+
 }

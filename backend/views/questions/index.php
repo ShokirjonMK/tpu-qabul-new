@@ -104,8 +104,6 @@ $questions = $dataProvider->getModels();
                     $imageHtml = '';
                     if ($model->image) {
                         $imgSrc = "/backend/web/uploads/questions/{$model->image}";
-                    } elseif ($model->image_base64) {
-                        $imgSrc = $model->image_base64;
                     }
 
                     if (!empty($imgSrc)) {
