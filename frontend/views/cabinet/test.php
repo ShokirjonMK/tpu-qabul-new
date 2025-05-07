@@ -149,12 +149,10 @@ $direction = $student->direction;
                                             <img src="/backend/web/uploads/questions/<?= $question->image ?>">
                                         </div>
                                     <?php endif; ?>
-                                    <?php if ($question->image_base64 != null) : ?>
+                                    <?php if ($question->image_base64): ?>
+                                        <?php $imgSrc = $question->image_base64; ?>
                                         <div class="question-img mt-2">
-                                            <?php
-                                            $imgSrc = $question->image_base64;
-                                            ?>
-                                            <img src="<?= $imgSrc ?>" style="max-width: 100px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="<?= $imgSrc ?>">
+                                            <img src="<?= $imgSrc ?>" style="max-width: 100px; cursor: pointer;" class="clickable-image" data-image="<?= $imgSrc ?>" alt="image">
                                         </div>
                                     <?php endif; ?>
 
@@ -334,16 +332,17 @@ $direction = $student->direction;
     </div>
 </div>
 
-<!-- Rasmni kattalashtirib ko‘rsatish uchun umumiy modal -->
+<!-- Modal for zoomed image -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <div class="modal-body text-center">
-                <img src="" id="modalImage" style="width: 100%; height: auto; border-radius: 5px;">
+            <div class="modal-body text-center p-0">
+                <img src="" id="modalImage" style="width: 100%; height: auto;" />
             </div>
         </div>
     </div>
 </div>
+
 
 
 <?php
@@ -416,6 +415,12 @@ $js = <<<JS
         });
     });
 
+    $(document).on('click', '.clickable-image', function() {
+        var src = $(this).data('image');
+        $('#modalImage').attr('src', src);
+        var modal = new bootstrap.Modal(document.getElementById('imageModal'));
+        modal.show();
+    });
     
 
     JS;
