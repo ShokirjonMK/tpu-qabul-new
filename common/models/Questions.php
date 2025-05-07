@@ -55,6 +55,7 @@ class Questions extends \yii\db\ActiveRecord
             [['subject_id'], 'required'],
             [['subject_id', 'level', 'status', 'created_at', 'updated_at', 'created_by', 'updated_by', 'is_deleted', 'type'], 'integer'],
             [['text'], 'string'],
+            [['image_base64'], 'string'],
             [['image'], 'string', 'max' => 255],
             [['photo'], 'file', 'skipOnEmpty' => true, 'extensions' => $this->photoExtension, 'maxSize' => $this->photoMaxSize],
             [['subject_id'], 'exist', 'skipOnError' => true, 'targetClass' => Subjects::class, 'targetAttribute' => ['subject_id' => 'id']],

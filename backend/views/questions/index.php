@@ -18,8 +18,8 @@ $breadcrumbs['item'][] = [
     'url' => ['/'],
 ];
 $breadcrumbs['item'][] = [
-    'label' => 'Fanlar ( '.$subject->name_uz . ' )',
-    'url' => ['subjects/index' , 'id' => $subject->id],
+    'label' => 'Fanlar ( ' . $subject->name_uz . ' )',
+    'url' => ['subjects/index', 'id' => $subject->id],
 ];
 
 $questions = $dataProvider->getModels();
@@ -31,7 +31,7 @@ $questions = $dataProvider->getModels();
         <ol class="breadcrumb">
             <?php
             foreach ($breadcrumbs['item'] as $item) {
-                echo "<li class='breadcrumb-item'><a href='". Url::to($item['url']) ."'>". $item['label'] ."</a></li>";
+                echo "<li class='breadcrumb-item'><a href='" . Url::to($item['url']) . "'>" . $item['label'] . "</a></li>";
             }
             ?>
             <li class="breadcrumb-item active" aria-current="page"><?= Html::encode($this->title) ?></li>
@@ -40,24 +40,30 @@ $questions = $dataProvider->getModels();
 
     <div class="mb-3 mt-4">
         <?php if (permission('questions', 'create')): ?>
-            <?= Html::a(Yii::t('app', 'Savol qo\'shish'), ['create' , 'id' => $subject->id], ['class' => 'b-btn b-primary']) ?>
+            <?= Html::a(Yii::t('app', 'Savol qo\'shish'), ['create', 'id' => $subject->id], ['class' => 'b-btn b-primary']) ?>
         <?php endif; ?>
 
         <?php if (permission('questions', 'upload')): ?>
-            <?= Html::a(Yii::t('app', 'Savol yuklash excel'), ['upload',  'id' => $subject->id],
+            <?= Html::a(
+                Yii::t('app', 'Savol yuklash excel'),
+                ['upload',  'id' => $subject->id],
                 [
                     "data-bs-toggle" => "modal",
                     "data-bs-target" => "#studentInfo",
                     'class' => 'b-btn b-primary'
-                ])
+                ]
+            )
             ?>
         <?php endif; ?>
 
         <?php if (permission('subjects', 'delete-questions')): ?>
-            <?= Html::a(Yii::t('app', 'Barcha savollarni o\'chirish'), ['subjects/delete-questions',  'id' => $subject->id],
+            <?= Html::a(
+                Yii::t('app', 'Barcha savollarni o\'chirish'),
+                ['subjects/delete-questions',  'id' => $subject->id],
                 [
                     'class' => 'b-btn b-danger'
-                ])
+                ]
+            )
             ?>
         <?php endif; ?>
     </div>
@@ -66,18 +72,61 @@ $questions = $dataProvider->getModels();
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            // [
+            //     'attribute' => 'Savol matni',
+            //     'contentOptions' => ['date-label' => 'Savol matni'],
+            //     'format' => 'raw',
+            //     'value' => function ($model) {
+            //         return $model->text;
+            //     }
+            // ],
+            // [
+            //     'attribute' => 'Savol matni',
+            //     'contentOptions' => ['date-label' => 'Savol matni'],
+            //     'format' => 'raw',
+            //     'value' => function ($model) {
+            //         $html = "<div>" . Html::encode($model->text) . "</div>";
+            //         if ($model->image) {
+            //             $html .= "<div class='mt-2'><img src='/backend/web/uploads/questions/{$model->image}' style='max-width:100px; max-height:100px;'></div>";
+            //         } elseif ($model->image_base64) {
+            //             $html .= "<div class='mt-2'><img src='{$model->image_base64}' style='max-width:100px; max-height:100px;'></div>";
+            //         }
+            //         return $html;
+            //     }
+            // ],
             [
                 'attribute' => 'Savol matni',
-                'contentOptions' => ['date-label' => 'Savol matni' ,'style' => 'max-width: 300px;'],
+                'contentOptions' => ['date-label' => 'Savol matni'],
                 'format' => 'raw',
-                'value' => function($model) {
-                    return $model->text;
+                'value' => function ($model) {
+                    $html = "<div>" . Html::encode($model->text) . "</div>";
+
+                    $imageHtml = '';
+                    if ($model->image) {
+                        $imgSrc = "/backend/web/uploads/questions/{$model->image}";
+                    } elseif ($model->image_base64) {
+                        $imgSrc = $model->image_base64;
+                    }
+
+                    if (!empty($imgSrc)) {
+                        $imageHtml = <<<HTML
+                            <div class='mt-2'>
+                                <img src="{$imgSrc}" style="max-width:100px; max-height:100px; cursor:pointer;" 
+                                     data-bs-toggle="modal" data-bs-target="#imageModal" data-image="{$imgSrc}">
+                            </div>
+                        HTML;
+                    }
+
+                    return $html . $imageHtml;
                 }
             ],
+
+
+
             [
                 'class' => ActionColumn::className(),
-                'contentOptions' => ['date-label' => 'Harakatlar' , 'class' => 'd-flex justify-content-around'],
-                'header'=> 'Harakatlar',
+                'contentOptions' => ['date-label' => 'Harakatlar', 'class' => 'd-flex justify-content-around'],
+                'header' => 'Harakatlar',
                 'buttons'  => [
                     'entered' => function ($url, $model) {
                         if ($model->status == 1) {
@@ -132,7 +181,8 @@ $questions = $dataProvider->getModels();
     ]); ?>
 
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
 </div>
 
@@ -150,6 +200,18 @@ $questions = $dataProvider->getModels();
     </div>
 </div>
 
+<!-- Modal for image preview -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="" id="modalImage" style="width:100%; height:auto; border-radius:5px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <?php
 $js = <<<JS
 $(document).ready(function() {
@@ -158,6 +220,10 @@ $(document).ready(function() {
         var button = $(e.relatedTarget);
         var url = button.attr('href');
         $(this).find('#studentInfoBody').load(url);
+    });
+    $(document).on('click', 'img[data-bs-toggle="modal"]', function() {
+        let imgSrc = $(this).data('image');
+        $('#modalImage').attr('src', imgSrc);
     });
 });
 JS;
