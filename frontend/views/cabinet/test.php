@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Url;
 use common\models\Student;
 use common\models\StudentPerevot;
@@ -18,7 +19,7 @@ use yii\widgets\LinkPager;
 /** @var Exam $exam */
 
 $lang = Yii::$app->language;
-$this->title = Yii::t("app" , "a141");
+$this->title = Yii::t("app", "a141");
 $questionData = $dataProvider->getModels();
 $finishTime = (date("m/d/Y H:i:s", $exam->finish_time));
 $examSubjects = $exam->examSubjects;
@@ -86,7 +87,7 @@ $direction = $student->direction;
                                                 ?>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
-                                        <p class="subject-title"><?= $examSubject->subject['name_'.$lang] ?></p>
+                                        <p class="subject-title"><?= $examSubject->subject['name_' . $lang] ?></p>
                                         <div class="subject-info">
                                             <p><span>Savollar soni: <?= $directionSubject->count ?> ta &nbsp; | &nbsp; <?= $startCount ?>-<?= $endCount ?> gacha</span></p>
                                             <p><span>Har bir savolga beriladigan bal: <?= $directionSubject->ball ?></span></p>
@@ -99,10 +100,12 @@ $direction = $student->direction;
                                                         $page = (int)($subjectQuestion->order / 10);
                                                         $urlPage = $page;
                                                         ?>
-                                                        <li id="order_<?= $subjectQuestion->order; ?>" class="<?php if ($subjectQuestion->option_id != null) { echo "active";} ?>">
-                                                        <span>
-                                                            <a href="<?= Url::to(['cabinet/test' , 'page' => $urlPage , 'per-page' => 10]) ?>"><?= $subjectQuestion->order; ?></a>
-                                                        </span>
+                                                        <li id="order_<?= $subjectQuestion->order; ?>" class="<?php if ($subjectQuestion->option_id != null) {
+                                                                                                                    echo "active";
+                                                                                                                } ?>">
+                                                            <span>
+                                                                <a href="<?= Url::to(['cabinet/test', 'page' => $urlPage, 'per-page' => 10]) ?>"><?= $subjectQuestion->order; ?></a>
+                                                            </span>
                                                         </li>
                                                     <?php endforeach; ?>
                                                 </ul>
@@ -126,8 +129,8 @@ $direction = $student->direction;
             <?php if (count($questionData) > 0) : ?>
                 <?php $number = 1; ?>
                 <?php foreach ($questionData as $grantStudentQuestions) : ?>
-                    <?php  $question = $grantStudentQuestions->question;  ?>
-                    <?php  $options = Options::options($question->id , $grantStudentQuestions->option); ?>
+                    <?php $question = $grantStudentQuestions->question;  ?>
+                    <?php $options = Options::options($question->id, $grantStudentQuestions->option); ?>
                     <div class="question">
                         <div class="page-card">
                             <div class="page-card-item">
@@ -146,7 +149,14 @@ $direction = $student->direction;
                                             <img src="/backend/web/uploads/questions/<?= $question->image ?>">
                                         </div>
                                     <?php endif; ?>
-
+                                    <?php if ($question->image_base64 != null) : ?>
+                                        <div class="question-img mt-2">
+                                            <?php
+                                            $imgSrc = $question->image_base64;
+                                            ?>
+                                            <img src="<?= $imgSrc ?>" style="max-width: 100px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="<?= $imgSrc ?>">
+                                        </div>
+                                    <?php endif; ?>
 
                                     <div class="options">
                                         <?php if (count($options) > 0) : ?>
@@ -155,27 +165,29 @@ $direction = $student->direction;
 
                                                 <div class="inputDiv">
                                                     <input type="radio"
-                                                           name="question_name_<?= $grantStudentQuestions->order ?>"
-                                                           id="questionId_<?= $number ?>"
-                                                           data-question="<?= $grantStudentQuestions->id ?>"
-                                                           data-option="<?= $option->id ?>"
-                                                           data-order="<?= $grantStudentQuestions->order ?>"
-                                                        <?php if ($grantStudentQuestions->option_id == $option->id) { echo "checked";} ?>
-                                                           class="visually-hidden">
+                                                        name="question_name_<?= $grantStudentQuestions->order ?>"
+                                                        id="questionId_<?= $number ?>"
+                                                        data-question="<?= $grantStudentQuestions->id ?>"
+                                                        data-option="<?= $option->id ?>"
+                                                        data-order="<?= $grantStudentQuestions->order ?>"
+                                                        <?php if ($grantStudentQuestions->option_id == $option->id) {
+                                                            echo "checked";
+                                                        } ?>
+                                                        class="visually-hidden">
                                                     <label for="questionId_<?= $number ?>" class="option-label">
                                                         <div class="option-label-left">
-                                                        <span>
-                                                            <?php
-                                                            $variants = ["A", "B", "C", "D", "E"];
+                                                            <span>
+                                                                <?php
+                                                                $variants = ["A", "B", "C", "D", "E"];
 
-                                                            if ($varinat >= 1 && $varinat <= count($variants)) {
-                                                                echo $variants[$varinat - 1];
-                                                            } else {
-                                                                echo "X";
-                                                            }
-                                                            $varinat++;
-                                                            ?>
-                                                        </span>
+                                                                if ($varinat >= 1 && $varinat <= count($variants)) {
+                                                                    echo $variants[$varinat - 1];
+                                                                } else {
+                                                                    echo "X";
+                                                                }
+                                                                $varinat++;
+                                                                ?>
+                                                            </span>
                                                         </div>
                                                         <div class="option-label-right">
                                                             <?php if ($option->text != null) : ?>
@@ -186,6 +198,14 @@ $direction = $student->direction;
                                                             <?php if ($option->image != null) : ?>
                                                                 <div class="question-img">
                                                                     <img src="/backend/web/uploads/options/<?= $option->image ?>" alt="RASN MAVJUD EMAS">
+                                                                </div>
+                                                            <?php endif; ?>
+                                                            <?php if ($option->image_base64 != null) : ?>
+                                                                <div class="question-img mt-2">
+                                                                    <?php
+                                                                    $imgSrc = $option->image_base64;
+                                                                    ?>
+                                                                    <img src="<?= $imgSrc ?>" style="max-width: 100px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="<?= $imgSrc ?>">
                                                                 </div>
                                                             <?php endif; ?>
                                                         </div>
@@ -247,7 +267,7 @@ $direction = $student->direction;
                                                 ?>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
-                                        <p class="subject-title"><?= $examSubject->subject['name_'.$lang] ?></p>
+                                        <p class="subject-title"><?= $examSubject->subject['name_' . $lang] ?></p>
                                         <div class="subject-info">
                                             <p><span>Savollar soni: <?= $qCount ?> ta &nbsp; | &nbsp; <?= $startCount ?>-<?= $endCount ?> gacha</span></p>
                                             <p><span>Har bir savolga beriladigan bal: <?= $examSubject->ball ?></span></p>
@@ -260,10 +280,12 @@ $direction = $student->direction;
                                                         $page = (int)($subjectQuestion->order / 10);
                                                         $urlPage = $page;
                                                         ?>
-                                                        <li data-order="<?= $subjectQuestion->order; ?>" id="order1_<?= $subjectQuestion->order; ?>" class="<?php if ($subjectQuestion->option_id != null) { echo "active";} ?>">
-                                                        <span>
-                                                            <a href="<?= Url::to(['cabinet/test' , 'page' => $urlPage , 'per-page' => 10]) ?>"><?= $subjectQuestion->order; ?></a>
-                                                        </span>
+                                                        <li data-order="<?= $subjectQuestion->order; ?>" id="order1_<?= $subjectQuestion->order; ?>" class="<?php if ($subjectQuestion->option_id != null) {
+                                                                                                                                                                echo "active";
+                                                                                                                                                            } ?>">
+                                                            <span>
+                                                                <a href="<?= Url::to(['cabinet/test', 'page' => $urlPage, 'per-page' => 10]) ?>"><?= $subjectQuestion->order; ?></a>
+                                                            </span>
                                                         </li>
                                                     <?php endforeach; ?>
                                                 </ul>
@@ -287,7 +309,7 @@ $direction = $student->direction;
     </div>
 </div>
 
-    <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -304,16 +326,27 @@ $direction = $student->direction;
                                 </div>
                             </div>
                             <p>
-                                <?= Yii::t("app" , "a143") ?>
+                                <?= Yii::t("app", "a143") ?>
                             </p>
                         </div>
 
                         <div class="d-flex justify-content-around align-items-center top35">
-                            <?= Html::button(Yii::t("app" , "a73"), ['class' => 'step_left_btn step_btn', 'data-bs-dismiss' => 'modal']) ?>
-                            <?= Html::a(Yii::t("app" , "a144"), ['cabinet/finish', 'id' => $exam->id], ['class' => 'step_right_btn step_btn', 'name' => 'login-button']) ?>
+                            <?= Html::button(Yii::t("app", "a73"), ['class' => 'step_left_btn step_btn', 'data-bs-dismiss' => 'modal']) ?>
+                            <?= Html::a(Yii::t("app", "a144"), ['cabinet/finish', 'id' => $exam->id], ['class' => 'step_right_btn step_btn', 'name' => 'login-button']) ?>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Rasmni kattalashtirib ko‘rsatish uchun umumiy modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="" id="modalImage" style="width: 100%; height: auto; border-radius: 5px;">
             </div>
         </div>
     </div>
@@ -389,6 +422,8 @@ $js = <<<JS
             });
         });
     });
+
+    
 
     JS;
 $this->registerJs($js);
