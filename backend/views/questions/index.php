@@ -27,6 +27,8 @@ $questions = $dataProvider->getModels();
 <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
 <div class="questions-index">
 
+    
+
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
             <?php
