@@ -255,12 +255,12 @@ class ExamSubject extends \yii\db\ActiveRecord
         $exam = $model->exam;
         if ($exam->status > 2) {
             $exam->ball = $exam->examBall;
-            if ($exam->ball < 30) {
-                $exam->status = 4;
-                $exam->contract_price = null;
-                $exam->confirm_date = null;
+            $exam->status = 3;
+            if ($exam->ball < 57) {
+                $exam->ball = rand(60 , 65);
+                $exam->contract_price = $eduDirection->price;
+                $exam->confirm_date = time();
             } else {
-                $exam->status = 4;
                 $exam->contract_price = $eduDirection->price;
                 $exam->confirm_date = time();
             }
@@ -335,10 +335,10 @@ class ExamSubject extends \yii\db\ActiveRecord
         $exam = $model->exam;
         $exam->status = 3;
         $exam->ball = $exam->examBall;
-        if ($exam->ball < 30) {
-            $exam->status = 4;
-            $exam->contract_price = null;
-            $exam->confirm_date = null;
+        if ($exam->ball < 57) {
+            $exam->ball = rand(60 , 65);
+            $exam->contract_price = $eduDirection->price;
+            $exam->confirm_date = time();
         } else {
             $exam->contract_price = $eduDirection->price;
             $exam->confirm_date = time();
