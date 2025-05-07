@@ -200,14 +200,7 @@ $direction = $student->direction;
                                                                     <img src="/backend/web/uploads/options/<?= $option->image ?>" alt="RASN MAVJUD EMAS">
                                                                 </div>
                                                             <?php endif; ?>
-                                                            <?php if ($option->image_base64 != null) : ?>
-                                                                <div class="question-img mt-2">
-                                                                    <?php
-                                                                    $imgSrc = $option->image_base64;
-                                                                    ?>
-                                                                    <img src="<?= $imgSrc ?>" style="max-width: 100px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="<?= $imgSrc ?>">
-                                                                </div>
-                                                            <?php endif; ?>
+
                                                         </div>
                                                     </label>
                                                 </div>
