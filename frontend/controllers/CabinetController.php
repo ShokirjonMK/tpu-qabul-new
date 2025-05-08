@@ -267,17 +267,12 @@ class CabinetController extends Controller
         $errors = [];
         $user = Yii::$app->user->identity;
         $student = $user->student;
-        if ($student->exam_type == 1) {
-            $errors[] = ['Shartnomani yuklab olish uchun universitetga murojat qiling!'];
-            \Yii::$app->session->setFlash('error', $errors);
-            return $this->redirect(\Yii::$app->request->referrer);
-        }
-        $eduDirection = $student->eduDirection;
-        if ($eduDirection->edu_type_id != 4) {
-            $action = 'contract';
-        }  else {
-            $errors[] = ['Shartnoma mavjud emas!'];
-            \Yii::$app->session->setFlash('error', $errors);
+
+        if ($type == 2) {
+            $action = 'con2';
+        } else {
+            $errors[] = ['Type not\'g\'ri tanlandi!'];
+            \Yii::$app->session->setFlash('error' , $errors);
             return $this->redirect(\Yii::$app->request->referrer);
         }
 

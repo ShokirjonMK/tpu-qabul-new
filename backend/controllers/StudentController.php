@@ -615,11 +615,10 @@ class StudentController extends Controller
         $errors = [];
         $student = Student::findOne(['id' => $id]);
 
-        $eduDirection = $student->eduDirection;
-        if ($eduDirection->edu_type_id != 4) {
-            $action = 'contract';
+        if ($type == 2) {
+            $action = 'con2';
         } else {
-            $errors[] = ['Shartnoma mavjud emas!'];
+            $errors[] = ['Type not\'g\'ri tanlandi!'];
             \Yii::$app->session->setFlash('error' , $errors);
             return $this->redirect(\Yii::$app->request->referrer);
         }
