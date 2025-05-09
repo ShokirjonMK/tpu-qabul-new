@@ -42,9 +42,9 @@ $breadcrumbs['item'][] = [
         ['class' => 'yii\grid\SerialColumn'],
         [
             'attribute' => 'F.I.O',
-            'contentOptions' => ['date-label' => 'F.I.O' ,'class' => 'wid250'],
+            'contentOptions' => ['date-label' => 'F.I.O', 'class' => 'wid250'],
             'format' => 'raw',
-            'value' => function($model) {
+            'value' => function ($model) {
                 return $model->fullName ?? '----';
             },
         ],
@@ -52,19 +52,19 @@ $breadcrumbs['item'][] = [
             'attribute' => 'Pasport ma\'lumoti',
             'contentOptions' => ['date-label' => 'Pasport ma\'lumoti'],
             'format' => 'raw',
-            'value' => function($model) {
-                $seria= $model->passport_serial ?? '-- ';
+            'value' => function ($model) {
+                $seria = $model->passport_serial ?? '-- ';
                 $number = $model->passport_number ?? ' -------';
-                return $seria.' '.$number;
+                return $seria . ' ' . $number;
             },
         ],
         [
-            'attribute' => current_user_id() == 5 ? 'Telefon raqami (sms)' : 'Telefon raqami',
+            'attribute' => 'Telefon raqami',
             'contentOptions' => ['date-label' => 'Telefon raqami'],
             'format' => 'raw',
-            'value' => function($model) {
-                if(current_user_id() == 5) {
-                    return $model->username. ' (' . $model->user->sms_number . ')';
+            'value' => function ($model) {
+                if (current_user_id() == 5 && $model->user->sms_number > 0) {
+                    return $model->username . ' (' . $model->user->sms_number . ')';
                 }
                 return $model->username;
             },
@@ -73,40 +73,40 @@ $breadcrumbs['item'][] = [
             'attribute' => 'Ro\'yhatga olingan',
             'contentOptions' => ['date-label' => 'Ro\'yhatga olingan'],
             'format' => 'raw',
-            'value' => function($model) {
-                return date("Y-m-d H:i:s" , $model->user->created_at);
+            'value' => function ($model) {
+                return date("Y-m-d H:i:s", $model->user->created_at);
             },
         ],
         [
             'attribute' => 'Status',
             'contentOptions' => ['date-label' => 'Status'],
             'format' => 'raw',
-            'value' => function($model) {
+            'value' => function ($model) {
                 $sms = '';
                 $user = $model->user;
                 if ($user->sms_time > time()) {
-                    $sms = "<br><div class='badge-table-div active mt-2'>".$user->sms_number."</div>";
+                    $sms = "<br><div class='badge-table-div active mt-2'>" . $user->sms_number . "</div>";
                 }
-                return $model->chalaStatus.$sms;
+                return $model->chalaStatus . $sms;
             },
         ],
         [
             'attribute' => 'CONSULTING',
             'contentOptions' => ['date-label' => 'CONSULTING'],
             'format' => 'raw',
-            'value' => function($model) {
+            'value' => function ($model) {
                 $cons = $model->user->cons;
                 $branch = $model->branch->name_uz ?? '- - - -';
-                return "<a href='https://{$cons->domen}' class='badge-table-div active'>".$cons->domen."</a><br><div class='badge-table-div active mt-2'>".$branch."</div>";
+                return "<a href='https://{$cons->domen}' class='badge-table-div active'>" . $cons->domen . "</a><br><div class='badge-table-div active mt-2'>" . $branch . "</div>";
             },
         ],
         [
             'attribute' => 'Batafsil',
             'contentOptions' => ['date-label' => 'Status'],
             'format' => 'raw',
-            'value' => function($model) {
+            'value' => function ($model) {
                 if (permission('student', 'view')) {
-                    $readMore = "<a href='".Url::to(['student/view' , 'id' => $model->id])."' class='badge-table-div active mt-2'>Batafsil</a>";
+                    $readMore = "<a href='" . Url::to(['student/view', 'id' => $model->id]) . "' class='badge-table-div active mt-2'>Batafsil</a>";
                     return $readMore;
                 }
             },
