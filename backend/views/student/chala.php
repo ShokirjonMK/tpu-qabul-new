@@ -63,8 +63,11 @@ $breadcrumbs['item'][] = [
             'contentOptions' => ['date-label' => 'Telefon raqami'],
             'format' => 'raw',
             'value' => function($model) {
-                $sms_number = current_user_id() == 5 ? " ({$model->user->sms_number})" : '';
-                return "{$model->username}{$sms_number}";
+                if(current_user_id() == 5) {
+                    return $model->username. ' (' . $model->user->sms_number . ')';
+                }
+                return $model->username. ' (' . $model->user->sms_number . ')';
+                return $model->username;
             },
         ],
         [
