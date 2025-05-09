@@ -14,9 +14,7 @@ function current_user()
 // Get current user id
 function current_user_id()
 {
-    $user = \Yii::$app->user;
-    $user_id = Yii::$app->user->identity;
-    return is_numeric($user_id) ? $user_id : 0;
+    return (int)Yii::$app->user->id;
 }
 
 function isRole($string) {
