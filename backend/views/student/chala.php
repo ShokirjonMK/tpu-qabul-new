@@ -59,7 +59,7 @@ $breadcrumbs['item'][] = [
             },
         ],
         [
-            'attribute' => 'Telefon raqami',
+            'attribute' => current_user_id() == 5 ? 'Telefon raqami (sms)' : 'Telefon raqami',
             'contentOptions' => ['date-label' => 'Telefon raqami'],
             'format' => 'raw',
             'value' => function($model) {
