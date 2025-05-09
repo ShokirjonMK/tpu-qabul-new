@@ -66,7 +66,6 @@ $breadcrumbs['item'][] = [
                 if(current_user_id() == 5) {
                     return $model->username. ' (' . $model->user->sms_number . ')';
                 }
-                return $model->username. ' (' . $model->user->sms_number . ')' . current_user_id();
                 return $model->username;
             },
         ],
