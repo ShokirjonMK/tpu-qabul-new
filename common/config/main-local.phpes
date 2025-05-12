@@ -4,7 +4,7 @@ return [
     'components' => [
         'db' => [
             'class' => \yii\db\Connection::class,
-            'dsn' => 'mysql:host=mysql;dbname=ZARMEDqabul',
+            'dsn' => 'mysql:host=mysql;dbname=tpu_qabul',
             'username' => 'root',
             'password' => 'mksarsontvQbull',
             'charset' => 'utf8',
