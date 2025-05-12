@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\AuthItem;
+use common\models\CrmPush;
 use common\models\Menu;
 use common\models\MenuSearch;
 use yii\web\Controller;
@@ -18,6 +19,8 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
+        CrmPush::deleteAll();
+        dd(1111);
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
