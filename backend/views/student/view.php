@@ -578,7 +578,7 @@ if ($model->eduType != null) {
                                     <div class="col-md-12 mt-4">
                                         <div class="view-info-right">
                                             <p>Fanlari</p>
-                                            <?= $exam->created_at ?> ||| <?= $exam->created_by ?>
+                                            <?= $eduModel->created_at ?> ||| <?= $eduModel->created_by ?>
                                             <?php if (count($examSubjects) > 0) : ?>
                                                 <div class="row mt-2">
                                                     <?php foreach ($examSubjects as $examSubject) : ?>
