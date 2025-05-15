@@ -81,7 +81,7 @@ class UploadPdf extends \yii\db\ActiveRecord
                     if (!file_exists(\Yii::getAlias($photoFolderName))) {
                         mkdir(\Yii::getAlias($photoFolderName), 0777, true);
                     }
-                    $photoName = $studentFile->student_id ."_". time()."_".current_user_id()."_" . \Yii::$app->security->generateRandomString(5). '.' . $photoFile->extension;
+                    $photoName = $studentFile->student_id ."_". time()."_".current_user_id()."_ik" . \Yii::$app->security->generateRandomString(5). '.' . $photoFile->extension;
                     if ($photoFile->saveAs($photoFolderName."/".$photoName)) {
                         $studentFile->file = $photoName;
                         $studentFile->file_status = 1;
