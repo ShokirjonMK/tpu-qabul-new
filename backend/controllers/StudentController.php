@@ -364,23 +364,26 @@ class StudentController extends Controller
 
     public function actionOfertaUpload($id)
     {
-        $model = $this->ofertafindModel($id);
+        $studentFile = $this->ofertafindModel($id);
+
+        $model = new UploadPdf();
 
         if ($this->request->isPost) {
             $post = $this->request->post();
             if ($model->load($post)) {
-                $result = StudentOferta::upload($model);
+                $result = UploadPdf::upload($model, $studentFile);
                 if ($result['is_ok']) {
                     \Yii::$app->session->setFlash('success');
                 } else {
                     \Yii::$app->session->setFlash('error' , $result['errors']);
                 }
-                return $this->redirect(['view', 'id' => $model->student_id]);
+                return $this->redirect(['view', 'id' => $studentFile->student_id]);
             }
         }
 
         return $this->renderAjax('oferta-upload', [
             'model' => $model,
+            'studentFile' => $studentFile,
         ]);
     }
 
@@ -409,23 +412,26 @@ class StudentController extends Controller
 
     public function actionTrUpload($id)
     {
-        $model = $this->trFindModel($id);
+        $studentFile = $this->trFindModel($id);
+
+        $model = new UploadPdf();
 
         if ($this->request->isPost) {
             $post = $this->request->post();
             if ($model->load($post)) {
-                $result = UploadPdf::upload($model);
+                $result = UploadPdf::upload($model, $studentFile);
                 if ($result['is_ok']) {
                     \Yii::$app->session->setFlash('success');
                 } else {
                     \Yii::$app->session->setFlash('error' , $result['errors']);
                 }
-                return $this->redirect(['view', 'id' => $model->student_id]);
+                return $this->redirect(['view', 'id' => $studentFile->student_id]);
             }
         }
 
         return $this->renderAjax('oferta-upload', [
             'model' => $model,
+            'studentFile' => $studentFile,
         ]);
     }
 
@@ -454,23 +460,26 @@ class StudentController extends Controller
 
     public function actionDtmUpload($id)
     {
-        $model = $this->dtmFindModel($id);
+        $studentFile = $this->dtmFindModel($id);
+
+        $model = new UploadPdf();
 
         if ($this->request->isPost) {
             $post = $this->request->post();
             if ($model->load($post)) {
-                $result = UploadPdf::upload($model);
+                $result = UploadPdf::upload($model, $studentFile);
                 if ($result['is_ok']) {
                     \Yii::$app->session->setFlash('success');
                 } else {
                     \Yii::$app->session->setFlash('error' , $result['errors']);
                 }
-                return $this->redirect(['view', 'id' => $model->student_id]);
+                return $this->redirect(['view', 'id' => $studentFile->student_id]);
             }
         }
 
         return $this->renderAjax('oferta-upload', [
             'model' => $model,
+            'studentFile' => $studentFile,
         ]);
     }
 
@@ -512,7 +521,7 @@ class StudentController extends Controller
                 } else {
                     \Yii::$app->session->setFlash('error' , $result['errors']);
                 }
-                return $this->redirect(['view', 'id' => $model->student_id]);
+                return $this->redirect(['view', 'id' => $studentFile->student_id]);
             }
         }
 
@@ -560,7 +569,7 @@ class StudentController extends Controller
                 } else {
                     \Yii::$app->session->setFlash('error' , $result['errors']);
                 }
-                return $this->redirect(['view', 'id' => $model->student_id]);
+                return $this->redirect(['view', 'id' => $studentFile->student_id]);
             }
         }
 
