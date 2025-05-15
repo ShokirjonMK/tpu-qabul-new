@@ -14,6 +14,8 @@ use yii\helpers\Url;
 /** @var yii\web\View $this */
 /** @var common\models\Student $model */
 
+$currentUser = Yii::$app->user->identity;
+
 $cons = $model->user->cons;
 $user = $model->user;
 $eduDirection = $model->eduDirection;
@@ -578,7 +580,6 @@ if ($model->eduType != null) {
                                     <div class="col-md-12 mt-4">
                                         <div class="view-info-right">
                                             <p>Fanlari</p>
-                                            <?= $model->updated_at ?> ||| <?= $model->updated_by ?>
                                             <?php if (count($examSubjects) > 0) : ?>
                                                 <div class="row mt-2">
                                                     <?php foreach ($examSubjects as $examSubject) : ?>
@@ -629,14 +630,16 @@ if ($model->eduType != null) {
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                                                    <div class="subject_box_left">
-                                                                        <p>Fandan to'plangan ball t:</p>
+                                                                <?php if ($currentUser->user_role == 'super_admin') : ?>
+                                                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                                                        <div class="subject_box_left">
+                                                                            <p>Sana</p>
+                                                                        </div>
+                                                                        <div class="subject_box_right">
+                                                                            <h6><?= $examSubject->updated_at ?> |  <?= $examSubject->updated_by ?></h6>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="subject_box_right">
-                                                                        <h6><?= $examSubject->updated_at ?> </h6>
-                                                                    </div>
-                                                                </div>
+                                                                <?php endif; ?>
 
                                                                 <div class="d-flex justify-content-between align-items-center mt-3">
                                                                     <div class="subject_box_left">
