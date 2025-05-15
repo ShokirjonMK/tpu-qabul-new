@@ -499,12 +499,14 @@ class StudentController extends Controller
 
     public function actionMasterUpload($id)
     {
-        $model = $this->masterFindModel($id);
+        $studentFile = $this->masterFindModel($id);
+
+        $model = new UploadPdf();
 
         if ($this->request->isPost) {
             $post = $this->request->post();
             if ($model->load($post)) {
-                $result = UploadPdf::upload($model);
+                $result = UploadPdf::upload($model, $studentFile);
                 if ($result['is_ok']) {
                     \Yii::$app->session->setFlash('success');
                 } else {
@@ -516,6 +518,7 @@ class StudentController extends Controller
 
         return $this->renderAjax('oferta-upload', [
             'model' => $model,
+            'studentFile' => $studentFile,
         ]);
     }
 
@@ -544,12 +547,14 @@ class StudentController extends Controller
 
     public function actionSertificateUpload($id)
     {
-        $model = $this->sertificateFindModel($id);
+        $studentFile = $this->sertificateFindModel($id);
+
+        $model = new UploadPdf();
 
         if ($this->request->isPost) {
             $post = $this->request->post();
             if ($model->load($post)) {
-                $result = UploadPdf::upload($model);
+                $result = UploadPdf::upload($model, $studentFile);
                 if ($result['is_ok']) {
                     \Yii::$app->session->setFlash('success');
                 } else {
@@ -561,6 +566,7 @@ class StudentController extends Controller
 
         return $this->renderAjax('oferta-upload', [
             'model' => $model,
+            'studentFile' => $studentFile
         ]);
     }
 
