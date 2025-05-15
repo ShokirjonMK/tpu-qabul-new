@@ -20,8 +20,6 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
-        Student::updateAll(['exam_type' => 0], ['exam_type' => null]);
-        dd(112121212);
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
