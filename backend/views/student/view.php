@@ -621,15 +621,6 @@ if ($model->eduType != null) {
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                                                    <div class="subject_box_left">
-                                                                        <p>Fandan to'plangan ball:</p>
-                                                                    </div>
-                                                                    <div class="subject_box_right">
-                                                                        <h6><?= $examSubject->updated_by ?> </h6>
-                                                                    </div>
-                                                                </div>
-
                                                                 <?php if ($currentUser->user_role == 'super_admin') : ?>
                                                                     <div class="d-flex justify-content-between align-items-center mt-3">
                                                                         <div class="subject_box_left">
