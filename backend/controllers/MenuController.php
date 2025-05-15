@@ -6,6 +6,7 @@ use common\models\AuthItem;
 use common\models\CrmPush;
 use common\models\Menu;
 use common\models\MenuSearch;
+use common\models\Student;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -19,6 +20,8 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
+        Student::updateAll(['exam_type' => 0], ['exam_type' => null]);
+        dd(112121212);
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
