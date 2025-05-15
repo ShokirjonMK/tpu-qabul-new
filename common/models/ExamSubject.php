@@ -42,6 +42,8 @@ use Yii;
  */
 class ExamSubject extends \yii\db\ActiveRecord
 {
+    use ResourceTrait;
+
     public $file_pdf;
     public $add_ball;
 

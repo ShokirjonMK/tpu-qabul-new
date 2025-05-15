@@ -20,7 +20,7 @@ class StepThreeOne extends Model
     public function rules()
     {
         return [
-            [['filial_id', 'lang_id', 'edu_form_id', 'edu_direction_id', 'edu_type_id',], 'required'],
+            [['filial_id', 'lang_id', 'edu_form_id', 'edu_direction_id', 'edu_type_id', 'exam_type'], 'required'],
             [['filial_id', 'lang_id', 'edu_form_id', 'edu_direction_id', 'edu_type_id', 'exam_type' , 'exam_date_id'], 'integer'],
 
             [['filial_id'], function ($attribute) {
@@ -120,6 +120,7 @@ class StepThreeOne extends Model
                 }
             }
         } else {
+            $this->exam_type = 0;
             $this->exam_date_id = null;
         }
 
