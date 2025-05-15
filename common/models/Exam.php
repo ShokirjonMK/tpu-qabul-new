@@ -40,6 +40,8 @@ use Yii;
  */
 class Exam extends \yii\db\ActiveRecord
 {
+    use ResourceTrait;
+
     /**
      * {@inheritdoc}
      */

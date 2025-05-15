@@ -38,6 +38,8 @@ use Yii;
  */
 class StudentMaster extends \yii\db\ActiveRecord
 {
+    use ResourceTrait;
+
     public $file_pdf;
 
     /**
