@@ -30,7 +30,7 @@ $model->number = $student->passport_number;
                 'autoclose' => true,
                 'format' => 'dd-mm-yyyy'
             ]
-        ])->label(Yii::t("app" , "Tug\'ilgan sana").' <span>*</span>'); ?>
+        ])->label(Yii::t("app" , "Tug'ilgan sana").' <span>*</span>'); ?>
     </div>
 
     <div class="form-group mt-4">
