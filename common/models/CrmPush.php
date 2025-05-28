@@ -33,7 +33,7 @@ class CrmPush extends \yii\db\ActiveRecord
     const OTASI = 949611;
     const SERIYA = 949613;
     const NOMER = 949615;
-    const BIRTHDAY = 949615;
+    const BIRTHDAY = 949617;
     const QABUL_TURI = 949619;
     const TALIM_SHAKLI = 949621;
     const TALIM_TILI = 949623;
