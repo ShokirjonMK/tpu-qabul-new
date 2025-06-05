@@ -52,6 +52,7 @@ if ($student->exam_type != 0) {
             'status' => 1,
             'branch_id' => $student->branch_id
         ])
+        ->andWhere(['>=', 'date', date('Y-m-d')]) // faqat bugun va keyingilar
         ->orderBy(['date' => SORT_ASC])->all();
 }
 $exam = [];
