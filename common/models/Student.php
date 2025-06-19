@@ -527,7 +527,7 @@ class Student extends \yii\db\ActiveRecord
                 $modelClass::tableName() . '.edu_direction_id' => $this->edu_direction_id,
                 $modelClass::tableName() . '.status' => 1,
                 $modelClass::tableName() . '.is_deleted' => 0,
-            ]);
+            ])->one();
 
         if (!$relation) {
             return "-----";
