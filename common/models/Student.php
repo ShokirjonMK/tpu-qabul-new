@@ -465,46 +465,53 @@ class Student extends \yii\db\ActiveRecord
 
     private function getExamStatus()
     {
-        $eduExam = Exam::findOne([
-            'student_id' => $this->id,
-            'edu_direction_id' => $this->edu_direction_id,
-            'is_deleted' => 0
-        ]);
+        $relation = $this->hasOne(Exam::class, ['student_id' => 'id'])
+            ->andOnCondition([
+                'edu_direction_id' => $this->edu_direction_id,
+                'is_deleted' => 0,
+            ])
+            ->one();
 
-        if (!$eduExam) return "-----";
+        if (!$relation) return "-----";
 
         $statuses = [
             0 => "<div class='badge-table-div danger'><span>Bekor qilindi</span></div>",
             1 => "<div class='badge-table-div active'><span>Test ishlamagan</span></div>",
             2 => "<div class='badge-table-div active'><span>Testda</span></div>",
-            3 => $eduExam->down_time !== null
+            3 => $relation->down_time !== null
                 ? "<div class='badge-table-div active'><span>Yakunlab shartnoma oldi</span></div>"
                 : "<div class='badge-table-div active'><span>Yakunlab shartnoma olmadi</span></div>",
             4 => "<div class='badge-table-div active'><span>Testdan o'tolmadi</span></div>",
         ];
 
-        return $statuses[$eduExam->status] ?? "-----";
+        return $statuses[$relation->status] ?? "-----";
     }
 
-    private function getPerevotStatus()
+    public function getPerevotStatus()
     {
         $models = [
             2 => StudentPerevot::class,
             3 => StudentDtm::class,
-            4 => StudentMaster::class
+            4 => StudentMaster::class,
         ];
 
         $modelClass = $models[$this->edu_type_id] ?? null;
-        if (!$modelClass) return "-----";
+        if (!$modelClass) {
+            return "-----";
+        }
 
-        $perevot = $modelClass::findOne([
-            'student_id' => $this->id,
-            'edu_direction_id' => $this->edu_direction_id,
-            'status' => 1,
-            'is_deleted' => 0
-        ]);
+        // Dynamic hasOne connection
+        $relation = $this->hasOne($modelClass, ['student_id' => 'id'])
+            ->andOnCondition([
+                $modelClass::tableName() . '.edu_direction_id' => $this->edu_direction_id,
+                $modelClass::tableName() . '.status' => 1,
+                $modelClass::tableName() . '.is_deleted' => 0,
+            ])
+            ->one();
 
-        if (!$perevot) return "-----";
+        if (!$relation) {
+            return "-----";
+        }
 
         $statuses = [
             0 => "<div class='badge-table-div danger'><span>Yuborilmagan</span></div>",
@@ -513,7 +520,7 @@ class Student extends \yii\db\ActiveRecord
             3 => "<div class='badge-table-div active'><span>Bekor qilindi</span></div>",
         ];
 
-        return $statuses[$perevot->file_status] ?? "-----";
+        return $statuses[$relation->file_status] ?? "-----";
     }
 
     public function getIsConfirm()
