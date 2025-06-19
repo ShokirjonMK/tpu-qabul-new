@@ -26,7 +26,11 @@ class MenuController extends Controller
             ->andWhere(['cons_id' => null])
             ->all();
 
-        dd(count($users));
+        foreach ($users as $s) {
+            $s->cons_id = 1;
+            $s->save(false);
+        }
+        dd(2323);
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
