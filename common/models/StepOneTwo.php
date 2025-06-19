@@ -112,7 +112,7 @@ class StepOneTwo extends Model
                 if ($query) {
                     $queryUser = $query->user;
                     if ($queryUser->id != $user->id) {
-                        $errors[] = ['Bu pasport ma\'lumot avval ro\'yhatdan o\'tgan. Tel:' . $queryUser->username];
+                        $errors[] = [$query.' Bu pasport ma\'lumot avval ro\'yhatdan o\'tgan. Tel:' . $queryUser->username];
                         $transaction->rollBack();
                         return ['is_ok' => false, 'errors' => $errors];
                     }
