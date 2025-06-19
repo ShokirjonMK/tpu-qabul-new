@@ -21,16 +21,6 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
-        $users = User::find()
-            ->where(['user_role' => 'student'])
-            ->andWhere(['cons_id' => null])
-            ->all();
-
-        foreach ($users as $s) {
-            $s->cons_id = 1;
-            $s->save(false);
-        }
-        dd(2323);
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
