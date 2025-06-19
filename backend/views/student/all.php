@@ -38,6 +38,70 @@ $breadcrumbs['item'][] = [
 
     <?= $this->render('_searchAll', ['model' => $searchModel]); ?>
 
+    <?php $data2 = [
+        ['class' => 'yii\grid\SerialColumn'],
+        [
+            'attribute' => 'F.I.O',
+            'contentOptions' => ['date-label' => 'F.I.O' ,'class' => 'wid250'],
+            'format' => 'raw',
+            'value' => function($model) {
+                return $model->fullName;
+            },
+        ],
+        [
+            'attribute' => 'Pasport ma\'lumoti',
+            'contentOptions' => ['date-label' => 'Pasport ma\'lumoti' ,'class' => 'wid250'],
+            'format' => 'raw',
+            'value' => function($model) {
+                return $model->passport_serial.' '.$model->passport_number.' | '.$model->passport_pin;
+            },
+        ],
+        [
+            'attribute' => 'Telefon raqami',
+            'contentOptions' => ['date-label' => 'Telefon raqami'],
+            'format' => 'raw',
+            'value' => function($model) {
+                return $model->username;
+            },
+        ],
+        [
+            'attribute' => 'Ro\'yhatga olingan sana',
+            'contentOptions' => ['date-label' => 'Ro\'yhatga olingan sana'],
+            'format' => 'raw',
+            'value' => function($model) {
+                return "<div class='badge-table-div active'>".date("Y-m-d H:i:s" , $model->user->created_at)."</div>";
+            },
+        ],
+        [
+            'attribute' => 'Status',
+            'contentOptions' => ['date-label' => 'Status'],
+            'format' => 'raw',
+            'value' => function($model) {
+                $user = $model->user;
+                if ($user->status == 10) {
+                    return "<div class='badge-table-div active mt-2'>Faol</div>";
+                } elseif ($user->status == 9 && $user->step > 0){
+                    return "<div class='badge-table-div active mt-2'>Parol tiklashda SMS parol kiritmagan</div>";
+                } elseif ($user->status == 9 && $user->step == 0){
+                    return "<div class='badge-table-div active mt-2'>SMS parol kiritmagan</div>";
+                } elseif ($user->status == 0){
+                    return "<div class='badge-table-div active mt-2'>Arxivlangan</div>";
+                }
+            },
+        ],
+        [
+            'attribute' => 'CONSULTING',
+            'contentOptions' => ['date-label' => 'CONSULTING'],
+            'format' => 'raw',
+            'value' => function($model) {
+                $cons = $model->user->cons;
+                $branch = $model->branch->name_uz ?? '- - - -';
+                return "<a href='https://{$cons->domen}' class='badge-table-div active'>".$cons->domen."</a><br><div class='badge-table-div active mt-2'>".$branch."</div>";
+            },
+        ],
+    ]; ?>
+
+
     <?php $data = [
         ['class' => 'yii\grid\SerialColumn'],
         [
@@ -132,7 +196,7 @@ $breadcrumbs['item'][] = [
                     <div>
                         <?php echo ExportMenu::widget([
                             'dataProvider' => $dataProvider,
-                            'columns' => $data,
+                            'columns' => $data2,
                             'asDropdown' => false,
                         ]); ?>
                     </div>
