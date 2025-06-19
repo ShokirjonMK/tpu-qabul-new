@@ -236,6 +236,32 @@ class Student extends \yii\db\ActiveRecord
         return $this->hasOne(ExamDate::class, ['id' => 'exam_date_id']);
     }
 
+    public function getExam()
+    {
+        return $this->hasOne(Exam::class, ['student_id' => 'id'])
+            ->andOnCondition(['is_deleted' => 0]);
+    }
+
+    public function getDtm()
+    {
+        return $this->hasOne(StudentDtm::class, ['student_id' => 'id'])
+            ->andOnCondition(['is_deleted' => 0, 'status' => 1]);
+    }
+
+    public function getPerevot()
+    {
+        return $this->hasOne(StudentPerevot::class, ['student_id' => 'id'])
+            ->andOnCondition(['is_deleted' => 0, 'status' => 1]);
+    }
+
+    public function getMaster()
+    {
+        return $this->hasOne(StudentMaster::class, ['student_id' => 'id'])
+            ->andOnCondition(['is_deleted' => 0, 'status' => 1]);
+    }
+
+
+
     public function getFullName()
     {
         return $this->last_name." ".$this->first_name." ".$this->middle_name;
@@ -465,12 +491,7 @@ class Student extends \yii\db\ActiveRecord
 
     private function getExamStatus()
     {
-        $relation = $this->hasOne(Exam::class, ['student_id' => 'id'])
-            ->andOnCondition([
-                'edu_direction_id' => $this->edu_direction_id,
-                'is_deleted' => 0,
-            ])
-            ->one();
+        $relation = $this->exam;
 
         if (!$relation) return "-----";
 
@@ -502,12 +523,11 @@ class Student extends \yii\db\ActiveRecord
 
         // Dynamic hasOne connection
         $relation = $this->hasOne($modelClass, ['student_id' => 'id'])
-            ->andOnCondition([
+            ->where([
                 $modelClass::tableName() . '.edu_direction_id' => $this->edu_direction_id,
                 $modelClass::tableName() . '.status' => 1,
                 $modelClass::tableName() . '.is_deleted' => 0,
-            ])
-            ->one();
+            ]);
 
         if (!$relation) {
             return "-----";
