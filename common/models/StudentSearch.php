@@ -378,7 +378,7 @@ class StudentSearch extends Student
                 'u.user_role' => 'student',
             ])
             ->andWhere(getConsIk())
-            ->with(['user.cons', 'branch'])
+            ->with(['user.cons', 'branch', 'user'])
             ->orderBy('s.id desc');
 
         // Ma'lumotlarni chiqarish uchun ActiveDataProvider
