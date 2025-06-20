@@ -200,22 +200,6 @@ $breadcrumbs['item'][] = [
             },
         ],
         [
-            'attribute' => 'Shartnoma sanasi',
-            'contentOptions' => ['date-label' => 'Shartnoma sanasi'],
-            'format' => 'raw',
-            'value' => function($model) {
-                return $model->contractConfirmDate;
-            },
-        ],
-        [
-            'attribute' => 'Shartnoma yuklab olgan sana',
-            'contentOptions' => ['date-label' => 'Shartnoma yuklab olgan sana'],
-            'format' => 'raw',
-            'value' => function($model) {
-                return $model->contractDownDate;
-            },
-        ],
-        [
             'attribute' => 'Bosqich',
             'contentOptions' => ['date-label' => 'F.I.O' ,'class' => 'Ta\'lim shakli'],
             'format' => 'raw',
