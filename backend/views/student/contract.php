@@ -255,8 +255,12 @@ $breadcrumbs['item'][] = [
                             'dataProvider' => $dataProvider,
                             'columns' => $data2,
                             'asDropdown' => false,
+                            'target' => ExportMenu::TARGET_BLANK,
                             'exportConfig' => [
-                                ExportMenu::FORMAT_EXCEL_X => false, // Excel o‘chirilgan
+                                ExportMenu::FORMAT_CSV => [
+                                    'label' => 'CSV format',
+                                    'filename' => 'talabalar_export',
+                                ],
                             ],
                         ]); ?>
                     </div>
