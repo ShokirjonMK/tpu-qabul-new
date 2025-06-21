@@ -257,7 +257,9 @@ $breadcrumbs['item'][] = [
                             'asDropdown' => false,
                             'target' => ExportMenu::TARGET_SELF,
                             'exportConfig' => [
-                                ExportMenu::FORMAT_HTML => true,
+                                ExportMenu::FORMAT_HTML => [
+                                        'label' => 'HTML'
+                                ],
                                 ExportMenu::FORMAT_TEXT => false,
                                 ExportMenu::FORMAT_EXCEL => false,
                                 ExportMenu::FORMAT_EXCEL_X => false,
