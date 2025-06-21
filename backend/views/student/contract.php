@@ -255,7 +255,9 @@ $breadcrumbs['item'][] = [
                             'dataProvider' => $dataProvider,
                             'columns' => $data2,
                             'asDropdown' => false,
-                            ExportMenu::FORMAT_EXCEL_X => false,
+                            'exportConfig' => [
+                                ExportMenu::FORMAT_EXCEL_X => false, // Excel o‘chirilgan
+                            ],
                         ]); ?>
                     </div>
                 </div>
