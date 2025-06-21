@@ -4,9 +4,13 @@ namespace backend\controllers;
 
 use common\models\AuthItem;
 use common\models\CrmPush;
+use common\models\Exam;
 use common\models\Menu;
 use common\models\MenuSearch;
 use common\models\Student;
+use common\models\StudentDtm;
+use common\models\StudentMaster;
+use common\models\StudentPerevot;
 use common\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -21,6 +25,30 @@ class MenuController extends Controller
 
     public function actionIndex()
     {
+        $query = Student::find()
+            ->alias('s')
+            ->innerJoin(User::tableName() . ' u', 's.user_id = u.id')
+            ->leftJoin(Exam::tableName() . ' e', 's.id = e.student_id AND e.status = 3 AND e.is_deleted = 0')
+            ->leftJoin(StudentPerevot::tableName() . ' sp', 's.id = sp.student_id AND sp.file_status = 2 AND sp.is_deleted = 0')
+            ->leftJoin(StudentDtm::tableName() . ' sd', 's.id = sd.student_id AND sd.file_status = 2 AND sd.is_deleted = 0')
+            ->leftJoin(StudentMaster::tableName() . ' sm', 's.id = sm.student_id AND sm.file_status = 2 AND sm.is_deleted = 0')
+            ->where([
+                'u.step' => 5,
+                'u.status' => [9, 10],
+                'u.user_role' => 'student',
+                's.is_deleted' => 0,
+            ])
+            ->andWhere(getConsIk())
+            ->andWhere([
+                'or',
+                ['not', ['e.student_id' => null]],
+                ['not', ['sp.student_id' => null]],
+                ['not', ['sd.student_id' => null]],
+                ['not', ['sm.student_id' => null]]
+            ])->orderBy('s.id desc')->all();
+
+        dd(count($query));
+
         $searchModel = new MenuSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
