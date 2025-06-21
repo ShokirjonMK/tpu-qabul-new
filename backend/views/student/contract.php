@@ -88,14 +88,14 @@ $breadcrumbs['item'][] = [
                 return $model->lang->name_uz ?? '----';
             },
         ],
-//        [
-//            'attribute' => 'Shartnoma summasi',
-//            'contentOptions' => ['date-label' => 'Shartnoma summasi'],
-//            'format' => 'raw',
-//            'value' => function($model) {
-//                return $model->contractPrice."<br><br>".$model->contractStatus;
-//            },
-//        ],
+        [
+            'attribute' => 'Shartnoma summasi',
+            'contentOptions' => ['date-label' => 'Shartnoma summasi'],
+            'format' => 'raw',
+            'value' => function($model) {
+                return $model->contractPrice."<br><br>".$model->contractStatus;
+            },
+        ],
         [
             'attribute' => 'Telefon raqami',
             'contentOptions' => ['date-label' => 'Telefon raqami'],
@@ -190,14 +190,14 @@ $breadcrumbs['item'][] = [
                 return $model->lang->name_uz ?? '----';
             },
         ],
-//        [
-//            'attribute' => 'Shartnoma summasi',
-//            'contentOptions' => ['date-label' => 'Shartnoma summasi'],
-//            'format' => 'raw',
-//            'value' => function($model) {
-//                return $model->contractPrice;
-//            },
-//        ],
+        [
+            'attribute' => 'Shartnoma summasi',
+            'contentOptions' => ['date-label' => 'Shartnoma summasi'],
+            'format' => 'raw',
+            'value' => function($model) {
+                return $model->contractPrice;
+            },
+        ],
         [
             'attribute' => 'Bosqich',
             'contentOptions' => ['date-label' => 'F.I.O' ,'class' => 'Ta\'lim shakli'],
@@ -218,14 +218,14 @@ $breadcrumbs['item'][] = [
                 return $model->username ?? null;
             },
         ],
-//        [
-//            'attribute' => 'Status',
-//            'contentOptions' => ['date-label' => 'Status'],
-//            'format' => 'raw',
-//            'value' => function($model) {
-//                return $model->contractStatus;
-//            },
-//        ],
+        [
+            'attribute' => 'Status',
+            'contentOptions' => ['date-label' => 'Status'],
+            'format' => 'raw',
+            'value' => function($model) {
+                return $model->contractStatus;
+            },
+        ],
         [
             'attribute' => 'CONSULTING',
             'contentOptions' => ['date-label' => 'CONSULTING'],
@@ -255,16 +255,14 @@ $breadcrumbs['item'][] = [
                             'dataProvider' => $dataProvider,
                             'columns' => $data2,
                             'asDropdown' => false,
+                            'target' => ExportMenu::TARGET_SELF,
                             'exportConfig' => [
-                                ExportMenu::FORMAT_HTML => false,
+                                ExportMenu::FORMAT_HTML => true,
                                 ExportMenu::FORMAT_TEXT => false,
                                 ExportMenu::FORMAT_EXCEL => false,
                                 ExportMenu::FORMAT_EXCEL_X => false,
                                 ExportMenu::FORMAT_PDF => false,
-                                ExportMenu::FORMAT_CSV => [
-                                    'label' => 'CSV format',
-                                    'filename' => 'talabalar_export',
-                                ],
+                                ExportMenu::FORMAT_CSV => false,
                             ],
                         ]); ?>
                     </div>
