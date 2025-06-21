@@ -255,7 +255,6 @@ $breadcrumbs['item'][] = [
                             'dataProvider' => $dataProvider,
                             'columns' => $data2,
                             'asDropdown' => false,
-                            'target' => ExportMenu::TARGET_BLANK,
                             'exportConfig' => [
                                 ExportMenu::FORMAT_CSV => [
                                     'label' => 'CSV format',
