@@ -255,6 +255,7 @@ $breadcrumbs['item'][] = [
                             'dataProvider' => $dataProvider,
                             'columns' => $data2,
                             'asDropdown' => false,
+                            ExportMenu::FORMAT_EXCEL_X => false,
                         ]); ?>
                     </div>
                 </div>
