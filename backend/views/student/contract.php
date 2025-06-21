@@ -88,14 +88,14 @@ $breadcrumbs['item'][] = [
                 return $model->lang->name_uz ?? '----';
             },
         ],
-        [
-            'attribute' => 'Shartnoma summasi',
-            'contentOptions' => ['date-label' => 'Shartnoma summasi'],
-            'format' => 'raw',
-            'value' => function($model) {
-                return $model->contractPrice."<br><br>".$model->contractStatus;
-            },
-        ],
+//        [
+//            'attribute' => 'Shartnoma summasi',
+//            'contentOptions' => ['date-label' => 'Shartnoma summasi'],
+//            'format' => 'raw',
+//            'value' => function($model) {
+//                return $model->contractPrice."<br><br>".$model->contractStatus;
+//            },
+//        ],
         [
             'attribute' => 'Telefon raqami',
             'contentOptions' => ['date-label' => 'Telefon raqami'],
