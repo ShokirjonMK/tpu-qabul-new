@@ -101,8 +101,7 @@ $breadcrumbs['item'][] = [
             'contentOptions' => ['date-label' => 'Telefon raqami'],
             'format' => 'raw',
             'value' => function($model) {
-                $user = $model->user;
-                return $user->username ?? null;
+                return $model->username ?? null;
             },
         ],
         [
@@ -164,7 +163,7 @@ $breadcrumbs['item'][] = [
             'contentOptions' => ['date-label' => 'Yo\'nalishi' ,'class' => 'wid250'],
             'format' => 'raw',
             'value' => function($model) {
-                return $model->direction->name ?? '----';
+                return $model->eduDirection->direction->name ?? '----';
             },
         ],
         [
@@ -191,14 +190,14 @@ $breadcrumbs['item'][] = [
                 return $model->lang->name_uz ?? '----';
             },
         ],
-        [
-            'attribute' => 'Shartnoma summasi',
-            'contentOptions' => ['date-label' => 'Shartnoma summasi'],
-            'format' => 'raw',
-            'value' => function($model) {
-                return $model->contractPrice;
-            },
-        ],
+//        [
+//            'attribute' => 'Shartnoma summasi',
+//            'contentOptions' => ['date-label' => 'Shartnoma summasi'],
+//            'format' => 'raw',
+//            'value' => function($model) {
+//                return $model->contractPrice;
+//            },
+//        ],
         [
             'attribute' => 'Bosqich',
             'contentOptions' => ['date-label' => 'F.I.O' ,'class' => 'Ta\'lim shakli'],
@@ -206,7 +205,7 @@ $breadcrumbs['item'][] = [
             'value' => function($model) {
                 if ($model->edu_type_id == 2 && $model->course_id != null) {
                     $courseId = $model->course_id + 1;
-                    return Course::findOne($courseId)->name_uz;
+                    return $courseId." - bosqich";
                 }
                 return "1 - bosqich";
             },
@@ -216,18 +215,17 @@ $breadcrumbs['item'][] = [
             'contentOptions' => ['date-label' => 'Telefon raqami'],
             'format' => 'raw',
             'value' => function($model) {
-                $user = $model->user;
-                return $user->username ?? null;
+                return $model->username ?? null;
             },
         ],
-        [
-            'attribute' => 'Status',
-            'contentOptions' => ['date-label' => 'Status'],
-            'format' => 'raw',
-            'value' => function($model) {
-                return $model->contractStatus;
-            },
-        ],
+//        [
+//            'attribute' => 'Status',
+//            'contentOptions' => ['date-label' => 'Status'],
+//            'format' => 'raw',
+//            'value' => function($model) {
+//                return $model->contractStatus;
+//            },
+//        ],
         [
             'attribute' => 'CONSULTING',
             'contentOptions' => ['date-label' => 'CONSULTING'],
