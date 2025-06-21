@@ -65,6 +65,30 @@ $breadcrumbs['item'][] = [
             },
         ],
         [
+            'attribute' => 'Yo\'nalishi',
+            'contentOptions' => ['date-label' => 'Yo\'nalishi'],
+            'format' => 'raw',
+            'value' => function($model) {
+                return $model->eduDirection->direction->name_uz ?? '---';
+            },
+        ],
+        [
+            'attribute' => 'Ta\'lim shakli',
+            'contentOptions' => ['date-label' => 'Ta\'lim shakli'],
+            'format' => 'raw',
+            'value' => function($model) {
+                return $model->eduForm->name_uz ?? '---';
+            },
+        ],
+        [
+            'attribute' => 'Ta\'lim tili',
+            'contentOptions' => ['date-label' => 'Ta\'lim tili'],
+            'format' => 'raw',
+            'value' => function($model) {
+                return $model->lang->name_uz ?? '---';
+            },
+        ],
+        [
             'attribute' => 'Ro\'yhatga olingan sana',
             'contentOptions' => ['date-label' => 'Ro\'yhatga olingan sana'],
             'format' => 'raw',
@@ -198,6 +222,11 @@ $breadcrumbs['item'][] = [
                             'dataProvider' => $dataProvider,
                             'columns' => $data2,
                             'asDropdown' => false,
+                            'exportConfig' => [
+                                ExportMenu::FORMAT_HTML => false,
+                                ExportMenu::FORMAT_TEXT => false,
+                                ExportMenu::FORMAT_PDF => false,
+                            ]
                         ]); ?>
                     </div>
                 </div>
