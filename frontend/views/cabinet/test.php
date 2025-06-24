@@ -346,6 +346,7 @@ $direction = $student->direction;
 
 
 <?php
+$serverNow = time() * 1000;
 $js = <<<JS
     (function () {
         const   second = 1000,
@@ -354,9 +355,10 @@ $js = <<<JS
                 day = hour * 24;
     
         const countDown = new Date(' $finishTime ').getTime();
+        let serverNow = $serverNow;
         const x = setInterval(function () {
-            const now = new Date().getTime();
-            const distance = countDown - now;
+            serverNow += 1000;
+            const distance = countDown - serverNow;
             
             const d = Math.floor(distance / day);
             const h = Math.floor((distance % day) / hour);
