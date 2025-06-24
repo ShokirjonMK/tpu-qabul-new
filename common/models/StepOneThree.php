@@ -62,17 +62,18 @@ class StepOneThree extends Model
             return ['is_ok' => false , 'errors' => $errors];
         }
 
+        $student->last_name = mb_strtoupper($this->last_name, 'UTF-8');
+        $student->first_name = mb_strtoupper($this->first_name, 'UTF-8');
+        $student->middle_name = mb_strtoupper($this->middle_name, 'UTF-8');
+        $student->birthday = date("Y-m-d", strtotime($this->birthday));;
+        $student->passport_serial = $this->passport_serial;
+        $student->passport_number = $this->passport_number;
+        $student->gender = 1;
+
         if ($pinfl != $this->passport_pin) {
             self::deleteNull($student->id);
 
-            $student->last_name = mb_strtoupper($this->last_name, 'UTF-8');
-            $student->first_name = mb_strtoupper($this->first_name, 'UTF-8');
-            $student->middle_name = mb_strtoupper($this->middle_name, 'UTF-8');
-            $student->birthday = date("Y-m-d", strtotime($this->birthday));;
-            $student->passport_serial = $this->passport_serial;
-            $student->passport_number = $this->passport_number;
             $student->passport_pin = $this->passport_pin;
-            $student->gender = 1;
 
             $query = Student::find()
                 ->joinWith('user')
