@@ -252,33 +252,37 @@ if ($model->eduType != null) {
 
         <div class="page_title mt-5 mb-3">
             <h6 class="title-h5">Pasport ma'lumoti</h6>
-            <?php if (permission('student', 'info')): ?>
-                <h6 class="title-link">
-                    <?= Html::a(
-                        Yii::t('app', 'Tahrirlash'),
-                        ['info', 'id' => $model->id],
-                        [
-                            "data-bs-toggle" => "modal",
-                            "data-bs-target" => "#studentInfoDate",
-                        ]
-                    )
-                    ?>
-                </h6>
-            <?php endif; ?>
 
-            <?php if (permission('student', 'info-full')): ?>
-                <h6 class="title-link">
-                    <?= Html::a(
-                        Yii::t('app', 'Tahrirlash'),
-                        ['info-full', 'id' => $model->id],
-                        [
-                            "data-bs-toggle" => "modal",
-                            "data-bs-target" => "#studentInfoDate",
-                        ]
-                    )
-                    ?>
-                </h6>
-            <?php endif; ?>
+            <div class="d-flex">
+                <?php if (permission('student', 'info')): ?>
+                    <h6 class="title-link">
+                        <?= Html::a(
+                            Yii::t('app', 'Tahrirlash'),
+                            ['info', 'id' => $model->id],
+                            [
+                                "data-bs-toggle" => "modal",
+                                "data-bs-target" => "#studentInfoDate",
+                            ]
+                        )
+                        ?>
+                    </h6>
+                <?php endif; ?>
+
+                <?php if (permission('student', 'info-full')): ?>
+                    <h6 class="title-link">
+                        <?= Html::a(
+                            Yii::t('app', 'Tahrirlash'),
+                            ['info-full', 'id' => $model->id],
+                            [
+                                "data-bs-toggle" => "modal",
+                                "data-bs-target" => "#studentInfoDate",
+                            ]
+                        )
+                        ?>
+                    </h6>
+                <?php endif; ?>
+            </div>
+
         </div>
 
         <div class="row">
