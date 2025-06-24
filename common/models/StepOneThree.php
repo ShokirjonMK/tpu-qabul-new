@@ -65,9 +65,9 @@ class StepOneThree extends Model
         if ($pinfl != $this->passport_pin) {
             self::deleteNull($student->id);
 
-            $student->last_name = $this->last_name;
-            $student->first_name = $this->first_name;
-            $student->middle_name = $this->middle_name;
+            $student->last_name = mb_strtoupper($this->last_name, 'UTF-8');
+            $student->first_name = mb_strtoupper($this->first_name, 'UTF-8');
+            $student->middle_name = mb_strtoupper($this->middle_name, 'UTF-8');
             $student->birthday = date("Y-m-d", strtotime($this->birthday));;
             $student->passport_serial = $this->passport_serial;
             $student->passport_number = $this->passport_number;
