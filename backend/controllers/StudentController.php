@@ -238,6 +238,8 @@ class StudentController extends Controller
         return $this->redirect(['index']);
     }
 
+
+
     public function actionInfo($id)
     {
         $student = $this->findModel($id);
@@ -255,6 +257,31 @@ class StudentController extends Controller
         } else {
             return false;
         }
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $result = $model->ikStep($user , $student);
+                if ($result['is_ok']) {
+                    \Yii::$app->session->setFlash('success');
+                } else {
+                    \Yii::$app->session->setFlash('error' , $result['errors']);
+                }
+                return $this->redirect(['view' , 'id' => $student->id]);
+            }
+        }
+
+        return $this->renderAjax($action , [
+            'model' => $model,
+            'student' => $student,
+        ]);
+    }
+
+    public function actionInfoFull($id)
+    {
+        $student = $this->findModel($id);
+        $user = $student->user;
+        $action = '_form-step13';
+        $model = new StepOneThree();
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
                 $result = $model->ikStep($user , $student);

@@ -74,6 +74,21 @@ class StepOneThree extends Model
             $student->passport_pin = $this->passport_pin;
             $student->gender = 1;
 
+            $query = Student::find()
+                ->joinWith('user')
+                ->where(['passport_pin' => $student->passport_pin])
+                ->andWhere(['user.status' => [9, 10]])
+                ->one();
+
+            if ($query) {
+                $queryUser = $query->user;
+                if ($queryUser->id != $user->id) {
+                    $errors[] = ['Bu pasport ma\'lumot avval ro\'yhatdan o\'tgan. Tel:' . $queryUser->username];
+                    $transaction->rollBack();
+                    return ['is_ok' => false, 'errors' => $errors];
+                }
+            }
+
             $amo = CrmPush::processType(3, $student, $user);
             if (!$amo['is_ok']) {
                 $transaction->rollBack();
