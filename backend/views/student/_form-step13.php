@@ -30,15 +30,18 @@ $model->passport_pin = $student->passport_pin;
     ]); ?>
 
     <div class="form-group">
-        <?= $form->field($model, 'last_name')->textInput(['placeholder' => Yii::t("app" , "Familya")])->label(Yii::t("app" , "Familya").' <span>*</span>') ?>
+        <?= $form->field($model, 'last_name')->textInput([
+            'placeholder' => Yii::t("app" , "Familya"),
+            'style' => 'text-transform: uppercase;'
+            ])->label(Yii::t("app" , "Familya").' <span>*</span>') ?>
     </div>
 
     <div class="form-group">
-        <?= $form->field($model, 'first_name')->textInput(['placeholder' => Yii::t("app" , "Ism")])->label(Yii::t("app" , "Ism").' <span>*</span>') ?>
+        <?= $form->field($model, 'first_name')->textInput(['placeholder' => Yii::t("app" , "Ism"), 'style' => 'text-transform: uppercase;'])->label(Yii::t("app" , "Ism").' <span>*</span>') ?>
     </div>
 
     <div class="form-group">
-        <?= $form->field($model, 'middle_name')->textInput(['placeholder' => Yii::t("app" , "Otasi")])->label(Yii::t("app" , "Otasi")) ?>
+        <?= $form->field($model, 'middle_name')->textInput(['placeholder' => Yii::t("app" , "Otasi"), 'style' => 'text-transform: uppercase;'])->label(Yii::t("app" , "Otasi")) ?>
     </div>
 
     <div class="form-group">
@@ -83,8 +86,3 @@ $model->passport_pin = $student->passport_pin;
 
     <?php ActiveForm::end(); ?>
 </div>
-
-
-
-
-

@@ -253,7 +253,7 @@ if ($model->eduType != null) {
         <div class="page_title mt-5 mb-3">
             <h6 class="title-h5">Pasport ma'lumoti</h6>
 
-            <div class="d-flex">
+            <div class="d-flex gap-2">
                 <?php if (permission('student', 'info')): ?>
                     <h6 class="title-link">
                         <?= Html::a(
