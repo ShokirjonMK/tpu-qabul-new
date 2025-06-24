@@ -68,7 +68,7 @@ class StepOneThree extends Model
             $student->last_name = $this->last_name;
             $student->first_name = $this->first_name;
             $student->middle_name = $this->middle_name;
-            $student->birthday = $this->birthday;
+            $student->birthday = date("Y-m-d", strtotime($this->birthday));;
             $student->passport_serial = $this->passport_serial;
             $student->passport_number = $this->passport_number;
             $student->passport_pin = $this->passport_pin;
